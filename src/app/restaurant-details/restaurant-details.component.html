@@ -1,0 +1,20 @@
+<div class="restaurant-card-wrapper">
+    <mat-card class="restaurant-card card-details" *ngIf="restaurant">
+        <mat-card-header>
+            <mat-card-subtitle>
+            </mat-card-subtitle>
+            <mat-card-title>{{ restaurant.name }} </mat-card-title>
+        </mat-card-header>
+        <img
+            priority
+            class="cropped"
+            width="300"
+            height="150"
+            mat-card-image
+            [src]="restaurant.imageURL"
+            [alt]="restaurant.name"
+        />
+        <mat-card-content>
+        </mat-card-content>
+    </mat-card>
+</div>

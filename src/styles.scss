@@ -1,4 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.center {
+    text-align: center;
+}
+
+.content-wrapper {
+    padding: 20px 70px;
+    display: block;
+}
+
+.auction-card {
+    width: 300px;
+    margin: 0 30px 40px 0;
+}
+
+.auction-card-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.cropped {
+    object-fit: cover;
+    margin: 10px 0;
+}
+
+.img-link {
+    cursor: pointer;
+}
+
+.text-label {
+    font-weight: bold;
+}
+
+.cdk-overlay-container {
+    margin-top: 4px;
+}

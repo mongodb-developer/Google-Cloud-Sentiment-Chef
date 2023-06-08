@@ -1,0 +1,45 @@
+<h1 class="center">Active restaurants</h1>
+
+<div class="restaurant-card-wrapper">
+    <mat-card class="restaurant-card" *ngFor="let restaurant of restaurants; index as i, first as isFirst">
+        <mat-card-header>
+            <mat-card-title><a [routerLink]="'/restaurants/' + restaurant._id">{{ restaurant.name }}</a></mat-card-title>
+        </mat-card-header>
+
+        <ng-container *ngIf="isFirst; then firstImage; else subsequentImage">
+        </ng-container>
+
+            <ng-template #firstImage>
+                <img
+                    priority
+                    [routerLink]="'/restaurants/' + restaurant._id"
+                    class="img-link cropped"
+                    width="300"
+                    height="150"
+                    mat-card-image
+                    [src]="restaurant.imageURL"
+                    [alt]="restaurant.name"
+                />
+            </ng-template>
+
+            <ng-template #subsequentImage>
+                <img
+                    [routerLink]="'/restaurants/' + restaurant._id"
+                    class="img-link cropped"
+                    width="300"
+                    height="150"
+                    mat-card-image
+                    [src]="restaurant.imageURL"
+                    [alt]="restaurant.name"
+                >
+            </ng-template>
+
+        <mat-card-content>
+
+            <mat-divider></mat-divider>
+        </mat-card-content>
+        <mat-card-actions>
+            <a mat-button [routerLink]="'/restaurants/' + restaurant._id">Go to restaurant</a>
+        </mat-card-actions>
+    </mat-card>
+</div>
