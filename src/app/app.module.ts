@@ -9,6 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,10 +33,12 @@ import { RestaurantDetailsComponent } from './restaurant-details/restaurant-deta
     MatButtonModule,
     MatCardModule,
     MatDividerModule,
+    MatDatepickerModule,
     MatIconModule,
     MatInputModule,
     MatToolbarModule,
-    MatFormFieldModule, 
+    MatFormFieldModule,
+    MatNativeDateModule,
   ],
   providers: [
     provideImgixLoader("***REMOVED***"),

@@ -1,0 +1,127 @@
+.restaurant-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 100rem;
+    margin: -20px auto 0 auto;
+    background: #fff;
+}
+
+.restaurant-banner {
+    position: relative;
+    height: 500px;
+    width: 100%;
+
+    .restaurant-cover {
+        object-fit: cover;
+    }
+}
+
+.restaurant-section-wrapper {
+    align-self: center;
+
+    .restaurant-section {
+        width: 70rem;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        gap: 50;
+        margin-top: -63px;
+
+        mat-card-title {
+            margin-bottom: 14px;
+
+        }
+
+        .restaurant-card-details, .restaurant-card-reservation {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        .restaurant-card-details {
+            width: 800px;
+
+            h1 {
+                margin: 20px 0;
+                font-size: 48px;
+                line-height: 80px;
+            }
+
+            h3 {
+                margin: 40px 0 20px 0;
+                font-size: 32px;
+            }
+
+            .restaurant-features {
+                display: flex;
+                flex-direction: row;
+                gap: 15px;
+                font-size: 20px;
+                margin: 20px 0;
+            }
+
+            .restaurant-description {
+                line-height: 24px;
+                font-size: 18px;
+                color: #2d333f;
+                margin: 30px 0;
+            }
+
+            .restaurant-rating {
+                display: flex;
+                flex-direction: column;
+                margin: 20px 0;
+                font-size: 18px;
+
+                .restaurant-rating-stars {
+                    font-size: 30px;
+                }
+
+                span {
+                    margin: 10px 0;
+                }
+
+                .restaurant-scores-label {
+                    text-transform: uppercase;
+                }
+
+                mat-divider {
+                    margin: 20px 0;
+                }
+
+                .restaurant-scores {
+                    display: flex;
+                    flex-direction: column;
+                    width: 300px;
+
+                    & > div {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                    }
+                }
+            }
+        }
+
+        .restaurant-card-reservation {
+            width: 400px;
+
+            .restaurant-reservation-date-time {
+                margin: 10px 0;
+                display: flex;
+                flex-direction: column;
+
+                & > div {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                label {
+                    margin-left: 3px;
+                    margin-bottom: 5px;
+                    font-size: 16px;
+                }
+            }
+        }
+
+    }
+}

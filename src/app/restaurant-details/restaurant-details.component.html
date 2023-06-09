@@ -1,20 +1,108 @@
-<div class="restaurant-card-wrapper">
-    <mat-card class="restaurant-card card-details" *ngIf="restaurant">
-        <mat-card-header>
-            <mat-card-subtitle>
-            </mat-card-subtitle>
-            <mat-card-title>{{ restaurant.name }} </mat-card-title>
-        </mat-card-header>
-        <img
-            priority
-            class="cropped"
-            width="300"
-            height="200"
-            mat-card-image
-            [ngSrc]="restaurant.imageURL"
-            [alt]="restaurant.name"
-        />
-        <mat-card-content>
-        </mat-card-content>
-    </mat-card>
+<div class="restaurant-wrapper" *ngIf="restaurant">
+    <div class="restaurant-banner">
+        <img class="restaurant-cover" priority fill [ngSrc]="restaurant.imageURL" [alt]="restaurant.name" />
+    </div>
+
+    <div class="restaurant-section-wrapper">
+        <section class="restaurant-section">
+            <div>
+                <mat-card class="restaurant-card restaurant-card-details">
+                    <mat-card-header>
+                        <mat-card-title>Overview</mat-card-title>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+
+                        <h1>{{ restaurant.name }}</h1>
+                        <mat-divider></mat-divider>
+
+                        <div class="restaurant-features">
+                            <div>🍽️ {{ restaurant.cuisine }}</div>
+                            <div>📍 {{ restaurant.borough }}</div>
+                        </div>
+
+                        <div class="restaurant-description">
+                            Nestled in the heart of a bustling city, the gastronomic paradise of "Flavorsome Haven" beckons food enthusiasts with
+                            its enchanting ambiance and delectable culinary offerings.
+                            As you step through the entrance, you're greeted by an elegant and modern interior that exudes a warm and inviting atmosphere.
+                        </div>
+
+                        <mat-divider></mat-divider>
+
+                        <h3>Ratings</h3>
+                        <div class="restaurant-rating">
+                            <span class="restaurant-rating-stars">⭐⭐⭐⭐ 4.8/5</span> 
+                            <span>#3 of 27,372 Restaurants in NYC</span>
+
+                            <mat-divider></mat-divider>
+
+                            <span class="restaurant-scores-label">Rating scores</span>
+                            <div class="restaurant-scores">
+                                <div><span>🍽️ Food</span><span>⭐⭐⭐⭐⭐</span></div>
+                                <div><span>💁‍♂️ Service</span><span>⭐⭐⭐⭐</span></div>
+                                <div><span>🎂 Atmosphere</span><span>⭐⭐⭐⭐⭐</span></div>
+                            </div>
+
+                        </div>
+
+                        <h3>Customer Reviews</h3>
+                        <div class="restaurant-leave-review">
+                            <h4>Write your review</h4>
+                            
+                        </div>
+
+                        <div class="restaurant-reviews">
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+            </div>
+            <div>
+                <div class="section-heading">
+                    <mat-card class="restaurant-card restaurant-card-reservation">
+                        <mat-card-header>
+                            <mat-card-title><h2>Make a reservation</h2></mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+
+                            <div class="restaurant-reservation-date-time">
+                                <div>
+                                    <label for="datepicker">Date</label>
+                                    <mat-form-field>
+                                        <mat-label>MM/DD/YYYY</mat-label>
+                                        <input matInput [matDatepicker]="datepicker">
+                                        <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #datepicker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                                <div>
+                                    <label for="timepicker">Time</label>
+                                    <mat-form-field>
+                                        <select #timepicker matNativeControl>
+                                          <option value="1900">7:00 PM</option>
+                                          <option value="1930">7:30 PM</option>
+                                          <option value="2000">8:00 PM</option>
+                                          <option value="2030">8:30 PM</option>
+                                          <option value="2100">9:00 PM</option>
+                                          <option value="2130">9:30 PM</option>
+                                          <option value="2200">10:00 PM</option>
+                                        </select>
+                                    </mat-form-field>
+                                </div>
+                                <button mat-raised-button color="primary">Reserve</button>
+                            </div>
+                
+                        </mat-card-content>
+                        <mat-card-actions>
+                        </mat-card-actions>
+                    </mat-card>
+
+                </div>
+
+            </div>
+
+        </section>
+    </div>
 </div>
