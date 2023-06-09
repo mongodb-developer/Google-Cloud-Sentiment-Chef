@@ -17,19 +17,25 @@ body {
 .content-wrapper {
     padding: 20px 70px;
     display: block;
+    background: #fafafa;
 }
 
-.auction-card {
+.restaurant-card {
     width: 300px;
     margin: 0 30px 40px 0;
 }
 
-.auction-card-wrapper {
+.restaurant-card-wrapper {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+
+    .restaurant-card-details {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .cropped {
@@ -47,4 +53,37 @@ body {
 
 .cdk-overlay-container {
     margin-top: 4px;
+}
+
+.primary-header {
+    background: #F9EBFF;
+    color: #00684A;
+    padding: 35px 0 35px 12%;
+    margin: -20px -70px 50px -70px;
+
+    h1 {
+        font-size: 64px;
+        line-height: 72px;
+        font-family: 'MongoDB Value Serif';
+    }
+
+    h2 {
+        font-size: 18px;
+        line-height: 32px;
+        color: #001E2B;
+        font-weight: lighter;
+    }
+
+    @media only screen and (max-width: 400px) {
+        padding: 35px;
+
+        h1 {
+            font-size: 45px;
+            text-align: center;
+        }
+
+        h2 {
+            display: none;
+        }
+    }
 }

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NgOptimizedImage, provideImgixLoader } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -25,6 +26,7 @@ import { RestaurantDetailsComponent } from './restaurant-details/restaurant-deta
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    NgOptimizedImage,
     MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
@@ -34,7 +36,9 @@ import { RestaurantDetailsComponent } from './restaurant-details/restaurant-deta
     MatToolbarModule,
     MatFormFieldModule, 
   ],
-  providers: [],
+  providers: [
+    provideImgixLoader("***REMOVED***"),
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

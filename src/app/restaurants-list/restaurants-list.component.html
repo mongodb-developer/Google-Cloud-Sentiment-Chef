@@ -1,9 +1,16 @@
-<h1 class="center">Active restaurants</h1>
+<div class="primary-header">
+    <h1>Restaurants</h1>
+    <h2>Find the Best Restaurants in New York City</h2>
+</div>
 
 <div class="restaurant-card-wrapper">
     <mat-card class="restaurant-card" *ngFor="let restaurant of restaurants; index as i, first as isFirst">
         <mat-card-header>
             <mat-card-title><a [routerLink]="'/restaurants/' + restaurant._id">{{ restaurant.name }}</a></mat-card-title>
+            <mat-card-subtitle class="restaurant-card-details">
+                <span>Cuisine: {{ restaurant.cuisine }}</span>
+                <span>Rating: ⭐⭐⭐⭐⭐</span>
+            </mat-card-subtitle>
         </mat-card-header>
 
         <ng-container *ngIf="isFirst; then firstImage; else subsequentImage">
@@ -15,9 +22,9 @@
                     [routerLink]="'/restaurants/' + restaurant._id"
                     class="img-link cropped"
                     width="300"
-                    height="150"
+                    height="200"
                     mat-card-image
-                    [src]="restaurant.imageURL"
+                    [ngSrc]="restaurant.imageURL"
                     [alt]="restaurant.name"
                 />
             </ng-template>
@@ -27,9 +34,9 @@
                     [routerLink]="'/restaurants/' + restaurant._id"
                     class="img-link cropped"
                     width="300"
-                    height="150"
+                    height="200"
                     mat-card-image
-                    [src]="restaurant.imageURL"
+                    [ngSrc]="restaurant.imageURL"
                     [alt]="restaurant.name"
                 >
             </ng-template>

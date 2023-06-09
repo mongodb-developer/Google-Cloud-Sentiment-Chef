@@ -21,7 +21,7 @@ export class RestaurantService {
     return collection;
   }
 
-  async listRestaurants(limit = 5) {
+  async listRestaurants(limit = 8) {
     const collection = await this.getCollection();
 
     return collection.aggregate([
