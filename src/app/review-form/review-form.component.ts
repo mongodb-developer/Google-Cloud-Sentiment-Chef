@@ -47,5 +47,11 @@ export class ReviewFormComponent implements OnInit {
     });
 
     this.reviewForm.reset();
+
+    this.reviewForm.markAsUntouched();
+    Object.keys(this.reviewForm.controls).forEach((name) => {
+      let control = this.reviewForm.controls[name];
+      control.setErrors(null);
+    });
   }
 }

@@ -3,6 +3,7 @@ import { RestaurantService } from '../restaurant.service';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerReview, NewReview } from '../review';
 import { ReviewService } from '../review.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-restaurant-details',
@@ -13,6 +14,7 @@ export class RestaurantDetailsComponent {
   private currentId: string = '';
   restaurant: any;
   reviews: CustomerReview[] = [];
+  reviewsWatcher: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,8 +35,18 @@ export class RestaurantDetailsComponent {
         const item = await this.restaurantService.findOne(this.currentId);
         this.restaurant = item;
         this.reviews = await this.reviewService.listReviews(this.currentId);
+
+        this.reviewsWatcher = (await this.reviewService.getReviewsObservable(this.currentId)).subscribe({
+          next: review => {
+            this.reviews = [review, ...this.reviews];
+          }
+        })
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.reviewsWatcher.unsubscribe();
   }
 
   addReview(review: NewReview) {

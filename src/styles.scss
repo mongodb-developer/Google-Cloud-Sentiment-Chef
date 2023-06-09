@@ -21,9 +21,38 @@ body {
     background: #fafafa;
 }
 
+.text-accent {
+    color: orange;
+}
+
+.positive-text {
+    color: green;
+}
+
+.negative-text {
+    color: red;
+}
+
+.neutral-text {
+    color: grey;
+}
+
 .restaurant-card {
-    width: 300px;
+    width: 600px;
     margin: 0 30px 40px 0;
+
+    mat-card-title {
+        padding: 20px;
+        font-size: 36px;
+        margin-top: 20px;
+    }
+
+    .restaurant-card-details > span, mat-card-actions > a {
+        padding: 0 20px;
+        font-size: 20px;
+        line-height: 36px;
+        font-weight: lighter;
+    }
 }
 
 .restaurant-card-wrapper {
@@ -32,6 +61,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    gap: 40px;
 
     .restaurant-card-details {
         display: flex;

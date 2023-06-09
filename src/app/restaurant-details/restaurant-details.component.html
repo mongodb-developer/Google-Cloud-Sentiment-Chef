@@ -14,24 +14,26 @@
                     <mat-card-content>
 
                         <h1>{{ restaurant.name }}</h1>
-                        <mat-divider></mat-divider>
 
                         <div class="restaurant-features">
                             <div>🍽️ {{ restaurant.cuisine }}</div>
                             <div>📍 {{ restaurant.borough }}</div>
                         </div>
+                        <mat-divider></mat-divider>
 
                         <div class="restaurant-description">
-                            Nestled in the heart of a bustling city, the gastronomic paradise of "Flavorsome Haven" beckons food enthusiasts with
+                            Nestled in the heart of a bustling city, the gastronomic paradise of "Flavorsome Haven"
+                            beckons food enthusiasts with
                             its enchanting ambiance and delectable culinary offerings.
-                            As you step through the entrance, you're greeted by an elegant and modern interior that exudes a warm and inviting atmosphere.
+                            As you step through the entrance, you're greeted by an elegant and modern interior that
+                            exudes a warm and inviting atmosphere.
                         </div>
 
                         <mat-divider></mat-divider>
 
                         <h3>Ratings</h3>
                         <div class="restaurant-rating">
-                            <span class="restaurant-rating-stars">⭐⭐⭐⭐ 4.8/5</span> 
+                            <span class="restaurant-rating-stars">⭐⭐⭐⭐ 4.8/5</span>
                             <span>#3 of 27,372 Restaurants in NYC</span>
 
                             <mat-divider></mat-divider>
@@ -45,18 +47,54 @@
 
                         </div>
 
-                            <h3>Leave Your Review</h3>
+                        <h3>Leave Your Review</h3>
                         <div class="restaurant-leave-review">
                             <app-review-form (formSubmitted)="addReview($event)"></app-review-form>
                         </div>
-                        <h3>Customer Reviews</h3>
 
+                        <h3>Customer Reviews</h3>
                         <div class="restaurant-reviews">
-                            <div *ngFor="let review of reviews">
-                                <span>{{review.name}}</span>
-                                <span>{{review.text}}</span>
+                            <div class="restaurant-review" *ngFor="let review of reviews">
+                                <div class="restaurant-review-user">
+                                    <img
+                                        src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg"
+                                        width="150"
+                                        height="150"
+                                    />
+                                    <span>{{ review.name }}</span>
+                                    <span>193 reviews</span>
+                                </div>
+                                <div class="restaurant-review-details">
+                                    <div class="restaurant-review-details-header">
+
+                                        <ng-container [ngSwitch]="review.sentiment">
+                                            <span class="positive-text" *ngSwitchCase="'positive'">Positive sentiment 🤩</span>
+                                            <span class="negative-text" *ngSwitchCase="'negative'">Negative sentiment 😢</span>
+                                            <span class="neutral-text" *ngSwitchCase="'neutral'">Neutral sentiment 😐</span>
+                                        </ng-container>
+
+                                        <span>Reviewed on {{review.date | date: 'mediumDate'}}</span>
+                                    </div>
+
+                                    <span class="restaurant-review-text">{{review.text}}</span>
+
+                                    <div class="restaurant-review-scores">
+                                        <span>Food </span>
+                                        <span class="text-accent">{{ review.food || 'N/S' }}</span> ·
+
+                                        <span>Service </span>
+                                        <span class="text-accent">{{ review.service || 'N/S' }}</span> ·
+
+                                        <span>Atmosphere </span>
+                                        <span class="text-accent">{{ review.interior || 'N/S' }}</span>
+                                    </div>
+                                </div>
+                                <mat-divider></mat-divider>
+
                             </div>
+
                         </div>
+
                     </mat-card-content>
                 </mat-card>
 
@@ -65,7 +103,9 @@
                 <div class="section-heading">
                     <mat-card class="restaurant-card restaurant-card-reservation">
                         <mat-card-header>
-                            <mat-card-title><h2>Make a reservation</h2></mat-card-title>
+                            <mat-card-title>
+                                <h2>Make a reservation</h2>
+                            </mat-card-title>
                         </mat-card-header>
                         <mat-divider></mat-divider>
                         <mat-card-content>
@@ -85,19 +125,19 @@
                                     <label for="timepicker">Time</label>
                                     <mat-form-field>
                                         <select #timepicker matNativeControl>
-                                          <option value="1900">7:00 PM</option>
-                                          <option value="1930">7:30 PM</option>
-                                          <option value="2000">8:00 PM</option>
-                                          <option value="2030">8:30 PM</option>
-                                          <option value="2100">9:00 PM</option>
-                                          <option value="2130">9:30 PM</option>
-                                          <option value="2200">10:00 PM</option>
+                                            <option value="1900">7:00 PM</option>
+                                            <option value="1930">7:30 PM</option>
+                                            <option value="2000">8:00 PM</option>
+                                            <option value="2030">8:30 PM</option>
+                                            <option value="2100">9:00 PM</option>
+                                            <option value="2130">9:30 PM</option>
+                                            <option value="2200">10:00 PM</option>
                                         </select>
                                     </mat-form-field>
                                 </div>
                                 <button mat-raised-button color="primary">Reserve</button>
                             </div>
-                
+
                         </mat-card-content>
                         <mat-card-actions>
                         </mat-card-actions>

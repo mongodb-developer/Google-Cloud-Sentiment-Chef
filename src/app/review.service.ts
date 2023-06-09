@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { RealmAppService } from './realm-app.service';
 import { CustomerReview, NewReview, RawReview } from './review';
 import { ObjectId } from './helpers/objectId';
+import { Observable, filter, from, map } from 'rxjs';
+import { fromChangeEvent } from './rxjs-operators';
+
+const isInsertEvent = (event: any): event is Realm.Services.MongoDB.InsertEvent<any> =>
+  event.operationType === 'insert';
+
 
 @Injectable({
   providedIn: 'root'
@@ -39,9 +45,27 @@ export class ReviewService {
 
     return collection.aggregate([
       { $match: { restaurant_id: oId } },
+      { $sort: { date: -1 } },
       { $limit: limit },
-      { $sort: { date: 1 } }
     ]) as Promise<CustomerReview[]>;
+  }
+
+  async getReviewsObservable(restarauntId: string) {
+    const oid = new ObjectId(restarauntId);
+
+    const collection = await this.getReadCollection();
+    const watcher = collection.watch({
+      filter: {
+        operationType: 'insert',
+        'fullDocument.restaurant_id': oid
+      }
+    });
+
+    return fromChangeEvent(watcher)
+      .pipe(
+        filter(isInsertEvent),
+        map(event => ({...event.fullDocument}))
+      )
   }
 
   async insertOne(restarauntId: string, review: NewReview) {
