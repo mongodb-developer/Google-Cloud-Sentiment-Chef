@@ -6,9 +6,9 @@
     <div class="restaurant-section-wrapper">
         <section class="restaurant-section">
             <div>
-                <mat-card class="restaurant-card restaurant-card-details">
+                <mat-card class="restaurant-card restaurant-card-header-details">
                     <mat-card-header>
-                        <mat-card-title>Overview</mat-card-title>
+                        <mat-card-title><h2>Overview</h2></mat-card-title>
                     </mat-card-header>
                     <mat-divider></mat-divider>
                     <mat-card-content>
@@ -52,8 +52,11 @@
                             <app-review-form (formSubmitted)="addReview($event)"></app-review-form>
                         </div>
 
-                        <h3>Customer Reviews</h3>
+                        <h3 *ngIf="reviews.length">Customer Reviews</h3>
                         <div class="restaurant-reviews">
+                            <!-- <div class="restaurant-no-reviews" *ngIf="!reviews.length"> -->
+                                <!-- <span>No reviews yet.</span> -->
+                            <!-- </div> -->
                             <div class="restaurant-review" *ngFor="let review of reviews">
                                 <div class="restaurant-review-user">
                                     <img

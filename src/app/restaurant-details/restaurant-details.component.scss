@@ -82,19 +82,14 @@
         display: flex;
         justify-content: center;
         flex-direction: row;
-        gap: 50;
-        margin-top: -63px;
+        margin-top: -104px;
 
-        mat-card-title {
-            margin-bottom: 14px;
-        }
-
-        .restaurant-card-details, .restaurant-card-reservation {
+        .restaurant-card-header-details, .restaurant-card-reservation {
             padding-left: 30px;
             padding-right: 30px;
         }
 
-        .restaurant-card-details {
+        .restaurant-card-header-details {
             width: 1000px;
 
             h1 {
