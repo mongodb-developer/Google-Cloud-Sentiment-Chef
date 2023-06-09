@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RestaurantsListComponent } from './restaurants-list/restaurants-list.component';
 import { RestaurantDetailsComponent } from './restaurant-details/restaurant-details.component';
 import { ReviewFormComponent } from './review-form/review-form.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ReviewFormComponent } from './review-form/review-form.component';
     RestaurantsListComponent,
     RestaurantDetailsComponent,
     ReviewFormComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,60 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+
+.mat-toolbar a {
+    margin-left: 8px;
+    color: inherit;
+    line-height: 18px;
+    text-decoration: none;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    z-index: 11;
+    transition: all 400ms ease-in-out;
+
+    .main-header {
+        @extend header;
+
+        &.hidden {
+            opacity: 0;
+        }
+    }
+}
+
+.search-block {
+    @extend header;
+    width: 0%;
+    right: 0;
+    background: #fff;
+
+
+    &.active {
+        width: 400px;
+
+        input {
+            width: 280px;
+        }
+    }
+
+    .search-autocomplete-form {
+        display: flex;
+
+        .search-control {
+            flex: 1;
+            font-size: 1rem;
+            border: 0;
+            outline: none;
+            padding-left: 10px;
+        }
+    }
+
+    @media only screen and (max-width: 800px) {
+        &.active, .search-autocomplete-form {
+            width: 100%;
+        }
+    }
+}

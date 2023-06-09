@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "ai-restaurants",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

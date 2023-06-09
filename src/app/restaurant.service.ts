@@ -38,4 +38,29 @@ export class RestaurantService {
 
     return collection.findOne({ _id: new ObjectId(id) });
   }
+
+  async search(query: string) {
+    const collection = await this.getCollection();
+
+    return collection?.aggregate([
+      {
+        $search: {
+          index: 'restaurants',
+          autocomplete: {
+            path: 'name',
+            query,
+          }
+        }
+      },
+      {
+        $limit: 5
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+        }
+      }
+    ]) as Promise<Restaurant[]>;
+  }
 }

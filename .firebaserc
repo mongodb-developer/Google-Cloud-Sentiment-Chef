@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "atlas-ai-demos": {
+      "hosting": {
+        "ai-restaurants": [
+          "atlas-ai-demos"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "atlas-ai-demos"
+  }
+}
