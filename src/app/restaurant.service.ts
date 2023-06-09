@@ -26,7 +26,6 @@ export class RestaurantService {
 
     return collection.aggregate([
       { $limit: limit },
-      { $sort: { ends: 1 } }
     ]) as Promise<Restaurant[]>;
   }
 

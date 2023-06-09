@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RestaurantService } from '../restaurant.service';
 import { ActivatedRoute } from '@angular/router';
+import { CustomerReview, NewReview } from '../review';
+import { ReviewService } from '../review.service';
 
 @Component({
   selector: 'app-restaurant-details',
@@ -10,10 +12,12 @@ import { ActivatedRoute } from '@angular/router';
 export class RestaurantDetailsComponent {
   private currentId: string = '';
   restaurant: any;
+  reviews: CustomerReview[] = [];
 
   constructor(
     private route: ActivatedRoute,
-    private auctionService: RestaurantService,
+    private restaurantService: RestaurantService,
+    private reviewService: ReviewService,
   ) {
   }
 
@@ -26,9 +30,14 @@ export class RestaurantDetailsComponent {
         }
 
         this.currentId = params.get('id')!;
-        const item = await this.auctionService.findOne(this.currentId);
+        const item = await this.restaurantService.findOne(this.currentId);
         this.restaurant = item;
+        this.reviews = await this.reviewService.listReviews(this.currentId);
       }
     });
+  }
+
+  addReview(review: NewReview) {
+    this.reviewService.insertOne(this.currentId, review);
   }
 }

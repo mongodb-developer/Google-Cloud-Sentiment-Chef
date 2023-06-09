@@ -45,13 +45,17 @@
 
                         </div>
 
-                        <h3>Customer Reviews</h3>
+                            <h3>Leave Your Review</h3>
                         <div class="restaurant-leave-review">
-                            <h4>Write your review</h4>
-                            
+                            <app-review-form (formSubmitted)="addReview($event)"></app-review-form>
                         </div>
+                        <h3>Customer Reviews</h3>
 
                         <div class="restaurant-reviews">
+                            <div *ngFor="let review of reviews">
+                                <span>{{review.name}}</span>
+                                <span>{{review.text}}</span>
+                            </div>
                         </div>
                     </mat-card-content>
                 </mat-card>
