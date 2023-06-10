@@ -6,7 +6,7 @@
     background: #fff;
 }
 
-.restaurant-description, .restaurant-review-text {
+.restaurant-description, .restaurant-review-text, .restaurant-summary {
     line-height: 30px;
     font-size: 18px;
     margin: 30px 0;
@@ -133,8 +133,16 @@
             }
         }
 
-        .restaurant-card-reservation {
+
+        .restaurant-card-summary, .restaurant-card-reservation {
             width: 350px;
+
+            .mat-divider {
+                margin-bottom: 25px;
+            }
+        }
+
+        .restaurant-card-reservation {
 
             .restaurant-reservation-date-time {
                 margin: 10px 0;

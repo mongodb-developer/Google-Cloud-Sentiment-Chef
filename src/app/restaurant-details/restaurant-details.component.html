@@ -3,6 +3,7 @@
         <img class="restaurant-cover" priority fill [ngSrc]="restaurant.imageURL" [alt]="restaurant.name" />
     </div>
 
+
     <div class="restaurant-section-wrapper">
         <section class="restaurant-section">
             <div>
@@ -12,7 +13,6 @@
                     </mat-card-header>
                     <mat-divider></mat-divider>
                     <mat-card-content>
-
                         <h1>{{ restaurant.name }}</h1>
 
                         <div class="restaurant-features">
@@ -83,13 +83,13 @@
 
                                     <div class="restaurant-review-scores">
                                         <span>Food </span>
-                                        <span class="text-accent">{{ review.food || 'N/S' }}</span> ·
+                                        <span class="text-accent">{{ review.food || 'Not specified' }}</span> ·
 
                                         <span>Service </span>
-                                        <span class="text-accent">{{ review.service || 'N/S' }}</span> ·
+                                        <span class="text-accent">{{ review.service || 'Not specified' }}</span> ·
 
                                         <span>Atmosphere </span>
-                                        <span class="text-accent">{{ review.interior || 'N/S' }}</span>
+                                        <span class="text-accent">{{ review.interior || 'Not specified' }}</span>
                                     </div>
                                 </div>
                                 <mat-divider></mat-divider>
@@ -104,10 +104,25 @@
             </div>
             <div>
                 <div class="section-heading">
+                    <mat-card *ngIf="restaurant.summary" class="restaurant-card restaurant-card-summary">
+                        <mat-card-header>
+                            <mat-card-title>
+                                <h2>AI-Generated Summary</h2>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                            <span class="restaurant-summary">{{ restaurant.summary }}</span>
+                        </mat-card-content>
+                        <mat-card-actions>
+                        </mat-card-actions>
+                    </mat-card>
+
+
                     <mat-card class="restaurant-card restaurant-card-reservation">
                         <mat-card-header>
                             <mat-card-title>
-                                <h2>Make a reservation</h2>
+                                <h2>Make a Reservation</h2>
                             </mat-card-title>
                         </mat-card-header>
                         <mat-divider></mat-divider>
