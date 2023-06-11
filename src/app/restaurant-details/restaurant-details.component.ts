@@ -14,6 +14,7 @@ export class RestaurantDetailsComponent {
   private currentId: string = '';
   restaurant: any;
   reviews: CustomerReview[] = [];
+  restaurantWatcher: Subscription;
   reviewsWatcher: Subscription;
 
   constructor(
@@ -36,16 +37,23 @@ export class RestaurantDetailsComponent {
         this.restaurant = item;
         this.reviews = await this.reviewService.listReviews(this.currentId);
 
+        this.restaurantWatcher = (await this.restaurantService.getRestaurantObservable(this.currentId)).subscribe({
+          next: restaurant => {
+            this.restaurant = restaurant;
+          }
+        });
+
         this.reviewsWatcher = (await this.reviewService.getReviewsObservable(this.currentId)).subscribe({
           next: review => {
             this.reviews = [review, ...this.reviews];
           }
-        })
+        });
       }
     });
   }
 
   ngOnDestroy() {
+    this.restaurantWatcher.unsubscribe();
     this.reviewsWatcher.unsubscribe();
   }
 

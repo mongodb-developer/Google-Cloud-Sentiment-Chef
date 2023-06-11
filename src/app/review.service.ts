@@ -2,12 +2,9 @@ import { Injectable } from '@angular/core';
 import { RealmAppService } from './realm-app.service';
 import { CustomerReview, NewReview, RawReview } from './review';
 import { ObjectId } from './helpers/objectId';
-import { Observable, filter, from, map } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { fromChangeEvent } from './rxjs-operators';
-
-const isInsertEvent = (event: any): event is Realm.Services.MongoDB.InsertEvent<any> =>
-  event.operationType === 'insert';
-
+import { isInsertEvent } from './change-events';
 
 @Injectable({
   providedIn: 'root'

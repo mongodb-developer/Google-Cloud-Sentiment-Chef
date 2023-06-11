@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { RealmAppService } from './realm-app.service';
 import { Restaurant } from './restaurant';
 import { ObjectId } from './helpers/objectId';
+import { fromChangeEvent } from './rxjs-operators';
+import { isUpdateEvent } from './change-events';
+import { filter, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +40,24 @@ export class RestaurantService {
     }
 
     return collection.findOne({ _id: new ObjectId(id) });
+  }
+
+  async getRestaurantObservable(id: string) {
+    const oid = new ObjectId(id);
+
+    const collection = await this.getCollection();
+    const watcher = collection.watch({
+      filter: {
+        operationType: 'update',
+        'fullDocument._id': oid
+      }
+    });
+
+    return fromChangeEvent(watcher)
+      .pipe(
+        filter(isUpdateEvent),
+        map(event => ({...event.fullDocument}))
+      )
   }
 
   async search(query: string) {
