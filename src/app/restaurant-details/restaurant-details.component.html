@@ -54,9 +54,6 @@
 
                         <h3 *ngIf="reviews.length">Customer Reviews with AI Sentiment Analysis</h3>
                         <div class="restaurant-reviews">
-                            <!-- <div class="restaurant-no-reviews" *ngIf="!reviews.length"> -->
-                                <!-- <span>No reviews yet.</span> -->
-                            <!-- </div> -->
                             <div class="restaurant-review" *ngFor="let review of reviews">
                                 <div class="restaurant-review-user">
                                     <img
@@ -65,7 +62,6 @@
                                         height="150"
                                     />
                                     <span>{{ review.name }}</span>
-                                    <span>193 reviews</span>
                                 </div>
                                 <div class="restaurant-review-details">
                                     <div class="restaurant-review-details-header">
