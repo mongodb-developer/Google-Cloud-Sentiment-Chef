@@ -28,7 +28,9 @@ export class RestaurantService {
     const collection = await this.getCollection();
 
     return collection.aggregate([
-      { $limit: limit },
+      {
+        $sample: { size: limit }
+      }
     ]) as Promise<Restaurant[]>;
   }
 

@@ -6,6 +6,19 @@
     background: #fff;
 }
 
+.restaurant-card.restaurant-card-details-page {
+
+    .mat-mdc-card-header {
+        padding-top: 0;
+    }
+
+
+    mat-card-title {
+        padding-bottom: 0;
+    }
+
+}
+
 .restaurant-description, .restaurant-review-text, .restaurant-summary {
     line-height: 30px;
     font-size: 18px;
@@ -29,13 +42,34 @@
 .restaurant-scores {
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 100%;
+    line-height: 35px;
 
     & > div {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
     }
+}
+
+.restaurant-rating {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    font-size: 18px;
+
+    .restaurant-rating-stars {
+        font-size: 30px;
+    }
+
+    span {
+        margin: 10px 0;
+    }
+
+    mat-divider {
+        margin: 20px 0;
+    }
+
 }
 
 
@@ -79,10 +113,11 @@
 
     .restaurant-section {
         width: 70rem;
+        min-height: 100rem;
         display: flex;
         justify-content: center;
         flex-direction: row;
-        margin-top: -104px;
+        margin-top: -68px;
 
         .restaurant-card-header-details, .restaurant-card-reservation {
             padding-left: 30px;
@@ -112,30 +147,16 @@
                 margin: 20px 0;
             }
 
-            .restaurant-rating {
-                display: flex;
-                flex-direction: column;
-                margin: 20px 0;
-                font-size: 18px;
 
-                .restaurant-rating-stars {
-                    font-size: 30px;
-                }
-
-                span {
-                    margin: 10px 0;
-                }
-
-                mat-divider {
-                    margin: 20px 0;
-                }
-
-            }
         }
 
 
-        .restaurant-card-summary, .restaurant-card-reservation {
+        .restaurant-card-summary, .restaurant-card-reservation, .restaurant-card-scores {
             width: 350px;
+
+            .mat-mdc-card-header {
+                justify-content: center;
+            }
 
             .mat-divider {
                 margin-bottom: 25px;

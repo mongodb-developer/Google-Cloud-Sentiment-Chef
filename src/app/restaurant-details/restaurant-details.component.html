@@ -7,7 +7,7 @@
     <div class="restaurant-section-wrapper">
         <section class="restaurant-section">
             <div>
-                <mat-card class="restaurant-card restaurant-card-header-details">
+                <mat-card class="restaurant-card restaurant-card-details-page restaurant-card-header-details">
                     <mat-card-header>
                         <mat-card-title><h2>Overview</h2></mat-card-title>
                     </mat-card-header>
@@ -30,22 +30,6 @@
                         </div>
 
                         <mat-divider></mat-divider>
-
-                        <h3>Ratings</h3>
-                        <div class="restaurant-rating">
-                            <span class="restaurant-rating-stars">⭐⭐⭐⭐ 4.8/5</span>
-                            <span>#3 of 27,372 Restaurants in NYC</span>
-
-                            <mat-divider></mat-divider>
-
-                            <span class="restaurant-scores-label">Rating scores</span>
-                            <div class="restaurant-scores">
-                                <div><span>🍽️ Food</span><span>⭐⭐⭐⭐⭐</span></div>
-                                <div><span>💁‍♂️ Service</span><span>⭐⭐⭐⭐</span></div>
-                                <div><span>🎂 Atmosphere</span><span>⭐⭐⭐⭐⭐</span></div>
-                            </div>
-
-                        </div>
 
                         <h3>Leave Your Review</h3>
                         <div class="restaurant-leave-review">
@@ -100,22 +84,8 @@
             </div>
             <div>
                 <div class="section-heading">
-                    <mat-card *ngIf="restaurant.summary" class="restaurant-card restaurant-card-summary">
-                        <mat-card-header>
-                            <mat-card-title>
-                                <h2>AI-Generated Summary</h2>
-                            </mat-card-title>
-                        </mat-card-header>
-                        <mat-divider></mat-divider>
-                        <mat-card-content>
-                            <span class="restaurant-summary">{{ restaurant.summary }}</span>
-                        </mat-card-content>
-                        <mat-card-actions>
-                        </mat-card-actions>
-                    </mat-card>
 
-
-                    <mat-card class="restaurant-card restaurant-card-reservation">
+                    <mat-card class="restaurant-card restaurant-card-details-page restaurant-card-reservation">
                         <mat-card-header>
                             <mat-card-title>
                                 <h2>Make a Reservation</h2>
@@ -156,6 +126,46 @@
                         <mat-card-actions>
                         </mat-card-actions>
                     </mat-card>
+
+                    <mat-card class="restaurant-card restaurant-card-details-page restaurant-card-scores">
+                        <mat-card-header>
+                            <mat-card-title>
+                                <h2>Rating and Scores</h2>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                            <div class="restaurant-rating">
+                                <span class="restaurant-rating-stars">⭐⭐⭐⭐ 4.8/5</span>
+                                <span>#3 of 27,372 Restaurants in NYC</span>
+                            </div>
+
+                            <mat-divider></mat-divider>
+
+                            <div class="restaurant-scores">
+                                <div><span>🍽️ Food</span><span>⭐⭐⭐⭐⭐</span></div>
+                                <div><span>💁‍♂️ Service</span><span>⭐⭐⭐⭐</span></div>
+                                <div><span>🎂 Atmosphere</span><span>⭐⭐⭐⭐⭐</span></div>
+                            </div>
+                        </mat-card-content>
+
+
+                    </mat-card>
+
+                    <mat-card *ngIf="restaurant.summary" class="restaurant-card restaurant-card-details-page restaurant-card-summary">
+                        <mat-card-header>
+                            <mat-card-title>
+                                <h2>AI-Generated Summary</h2>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                            <span class="restaurant-summary">{{ restaurant.summary }}</span>
+                        </mat-card-content>
+                        <mat-card-actions>
+                        </mat-card-actions>
+                    </mat-card>
+
 
                 </div>
 

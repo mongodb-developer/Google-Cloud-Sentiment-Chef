@@ -1,30 +1,14 @@
 <form class="review-form" autocomplete="off" [formGroup]="reviewForm" (ngSubmit)="submitForm()">
-    <mat-form-field>
+    <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
         <input matInput formControlName="name">
     </mat-form-field>
 
-    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
-        <div *ngIf="name.errors?.['required']">
-            The name field is required.
-        </div>
-    </div>
-
-    <mat-form-field>
+    <mat-form-field appearance="outline">
         <mat-label>Review</mat-label>
         <textarea matInput formControlName="text" 
-            cdkAutosizeMinRows="5" required></textarea>
+            rows="5" required></textarea>
     </mat-form-field>
 
-    <div *ngIf="text.invalid && (text.dirty || text.touched)" class="alert alert-danger">
-
-        <div *ngIf="text.errors?.['required']">
-            The review field is required.
-        </div>
-        <div *ngIf="text.errors?.['minlength']">
-            The review must be at least 10 characters long.
-        </div>
-    </div>
-
-    <button mat-raised-button color="primary" type="submit" [disabled]="reviewForm.invalid">Submit</button>
+    <button class="submit-review" mat-raised-button color="primary" type="submit" [disabled]="reviewForm.invalid">Submit review</button>
 </form>
