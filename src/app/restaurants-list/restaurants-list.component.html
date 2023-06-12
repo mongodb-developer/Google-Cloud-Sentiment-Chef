@@ -1,13 +1,15 @@
 <div class="primary-header">
     <h1>Sentiment Chef</h1>
     <h2>AI-Driven Sentiment Analysis and Summarization for Restaurant Reviews</h2>
-    <span>Analyze the sentiment of restaurant reviews, identifying positive, negative, and neutral opinions.
-        Automatically generate concise summaries of lengthy reviews, saving you time and effort.
-    </span>
+    <h3>Powered by MongoDB Atlas and Google Cloud's Vertex AI PaLM API</h3>
 </div>
 
 <div class="restaurant-card-wrapper">
-    <mat-card class="restaurant-card" *ngFor="let restaurant of restaurants; index as i, first as isFirst">
+    <mat-card
+        class="restaurant-card"
+        *ngFor="let restaurant of restaurants; index as i, first as isFirst"
+        [class.first]="isFirst"
+    >
         <mat-card-header>
             <mat-card-title><a [routerLink]="'/restaurants/' + restaurant._id">{{ restaurant.name }}</a></mat-card-title>
             <mat-card-subtitle class="restaurant-card-details">
@@ -53,3 +55,5 @@
         </mat-card-actions>
     </mat-card>
 </div>
+
+<ngx-guided-tour></ngx-guided-tour>

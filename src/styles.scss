@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '../node_modules/ngx-guided-tour/scss/guided-tour-base-theme.scss';
+
+ngx-guided-tour .tour-step .tour-title {
+    padding: 0 !important;
+}
+
 html,
 body {
     height: 100%;
@@ -7,8 +13,31 @@ body {
 
 body {
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
     color: #2d333f;
+}
+
+body, span, p,
+.mat-mdc-card,
+.mat-h3, .mat-subtitle-1, .mat-typography .mat-h3, .mat-typography .mat-subtitle-1, .mat-typography h3,
+.mat-h2, .mat-headline-6, .mat-typography .mat-h2, .mat-typography .mat-headline-6, .mat-typography h2,
+.mat-body, .mat-body-2, .mat-typography .mat-body, .mat-typography .mat-body-2, .mat-typography,
+ngx-guided-tour .tour-step .tour-buttons .next-button
+{
+    font-family: "Euclid Circular A", Roboto, "Helvetica Neue", sans-serif;
+}
+
+ngx-guided-tour .tour-step .tour-buttons .next-button {
+    background-color: #3F51B9;
+    color: #ffffff;
+    padding: 4px 0;
+
+    &:hover {
+        background-color: #616ebc;
+    }
+}
+
+ngx-guided-tour .tour-step .tour-buttons .next-button {
+    border-radius: 15px !important;
 }
 
 .center {

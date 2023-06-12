@@ -53,8 +53,8 @@ export class RestaurantDetailsComponent {
   }
 
   ngOnDestroy() {
-    this.restaurantWatcher.unsubscribe();
-    this.reviewsWatcher.unsubscribe();
+    this.restaurantWatcher?.unsubscribe();
+    this.reviewsWatcher?.unsubscribe();
   }
 
   addReview(review: NewReview) {

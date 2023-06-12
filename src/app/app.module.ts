@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GuidedTourModule, GuidedTourService } from 'ngx-guided-tour';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -45,9 +46,11 @@ import { NavbarComponent } from './navbar/navbar.component';
     MatFormFieldModule,
     MatNativeDateModule,
     ReactiveFormsModule,
+    GuidedTourModule,
   ],
   providers: [
     provideImgixLoader("***REMOVED***"),
+    GuidedTourService,
   ],
   bootstrap: [AppComponent]
 })
