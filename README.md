@@ -1,27 +1,63 @@
-# AiRestaurants
+# Generative AI Sentiment Analysis and Summarization
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.5.
+This is a demo of a customer service chatbot using Generative AI through Google Cloud's Vertex AI PaLM APIs. The app also leverages MongoDB Atlas Search to look for relevant answers in a MongoDB Atlas database. Finally, the app can detect dissatisfied customers with sentiment analysis.
 
-## Development server
+## Quickstart
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. Google Cloud setup
+  1. Create two public 2nd generation Cloud Functions using the following implementation.
+    * [Analyze sentiment](./google-cloud-functions/analyze-sentiment/)
+    * [Summarize reviews](./google-cloud-functions/summarize-review-sentiment/)
+    * Take a note of the deployed functions' URLs. You will need them later.
 
-## Code scaffolding
+1. MongoDB Atlas setup
+  1. Database cluster
+    * Deploy a new MongoDB database cluster in your Atlas account. You can use the free M0 tier for this demo.
+    * Load the sample dataset.
+  1. Data API
+    * Enable the Data API for your newly deployed cluster.
+    * Set the `readAll` data access rule for the `sample_restaurants.restaurants` collection.
+  1. Atlas Functions
+    * Create two new Atlas Functions with the following implementations. Replace the URL placeholders with the URls of the deployed Google Cloud Functions.
+      * [Analyze sentiment](./atlas-app-services/functions/Atlas_Triggers_analyzeReviewSentiment_1686394580.js)
+      * [Summarize reviews](./atlas-app-services/functions/Atlas_Triggers_summarizeReviewsSentiment_1686475894.js)
+  1. Atlas Triggers
+    * Create two new Atlas Triggers with the following configuration.
+      * [Analyze sentiment](./atlas-app-services/triggers/analyzeReviewSentiment.json)
+      * [Summarize reviews](./atlas-app-services/triggers/summarizeReviewsSentiment.json)
+1. MongoDB Atlas setup
+  1. Database cluster
+    * Deploy a new MongoDB database cluster in your Atlas account. You can use the free M0 tier for this demo.
+    * Load the sample dataset.
+  1. Data API
+    * Enable the Data API for your newly deployed cluster.
+    * Set the `readAll` data access rule for the `sample_restaurants.restaurants` collection.
+  1. Triggers
+    * Create two new triggers using the following implementations:
+    
+## Contributors ✨
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Contributors ✨
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center">
+        <a href="https://twitter.com/StanimiraVlaeva">
+            <img src="https://pbs.twimg.com/profile_images/1645826266770055168/SS9kFxoJ_400x400.jpg" width="100px;" alt=""/><br />
+            <sub><b>Stanimira Vlaeva</b></sub>
+        </a><br />
+    </td>
+  </tr>
+</table>
 
-## Running end-to-end tests
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Disclaimer
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Use at your own risk; not a supported MongoDB product
