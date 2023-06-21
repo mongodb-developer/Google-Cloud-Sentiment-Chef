@@ -4,41 +4,30 @@ This is a demo of a customer service chatbot using Generative AI through Google 
 
 ## Quickstart
 
-1. Google Cloud setup
-  1. Create two public 2nd generation Cloud Functions using the following implementation.
-    * [Analyze sentiment](./google-cloud-functions/analyze-sentiment/)
-    * [Summarize reviews](./google-cloud-functions/summarize-review-sentiment/)
-    * Take a note of the deployed functions' URLs. You will need them later.
+### Google Cloud setup
+Create two public 2nd generation Cloud Functions with the following implementations.
 
-1. MongoDB Atlas setup
+  1. [Analyze sentiment Google Cloud Function](./google-cloud-functions/analyze-sentiment/)
+  1. [Summarize reviews Google Cloud Function](./google-cloud-functions/summarize-review-sentiment/)
+
+Take a note of the deployed functions' URLs. You will need them later.
+
+### MongoDB Atlas setup
+
   1. Database cluster
-    * Deploy a new MongoDB database cluster in your Atlas account. You can use the free M0 tier for this demo.
-    * Load the sample dataset.
+    - Deploy a new MongoDB database cluster in your Atlas account. You can use the free M0 tier for this demo.
+    - Load the sample dataset.
   1. Data API
-    * Enable the Data API for your newly deployed cluster.
-    * Set the `readAll` data access rule for the `sample_restaurants.restaurants` collection.
+    - Enable the Data API for your newly deployed cluster.
+    - Set the `readAll` data access rule for the `sample_restaurants.restaurants` collection.
   1. Atlas Functions
-    * Create two new Atlas Functions with the following implementations. Replace the URL placeholders with the URls of the deployed Google Cloud Functions.
-      * [Analyze sentiment](./atlas-app-services/functions/Atlas_Triggers_analyzeReviewSentiment_1686394580.js)
-      * [Summarize reviews](./atlas-app-services/functions/Atlas_Triggers_summarizeReviewsSentiment_1686475894.js)
+    - Create two new Atlas Functions with the following implementations. Replace the URL placeholders with the URls of the deployed Google Cloud Functions.
+      - [Analyze sentiment Atlas Function](./atlas-app-services/functions/Atlas_Triggers_analyzeReviewSentiment_1686394580.js)
+      - [Summarize reviews Atlas Function](./atlas-app-services/functions/Atlas_Triggers_summarizeReviewsSentiment_1686475894.js)
   1. Atlas Triggers
-    * Create two new Atlas Triggers with the following configuration.
-      * [Analyze sentiment](./atlas-app-services/triggers/analyzeReviewSentiment.json)
-      * [Summarize reviews](./atlas-app-services/triggers/summarizeReviewsSentiment.json)
-1. MongoDB Atlas setup
-  1. Database cluster
-    * Deploy a new MongoDB database cluster in your Atlas account. You can use the free M0 tier for this demo.
-    * Load the sample dataset.
-  1. Data API
-    * Enable the Data API for your newly deployed cluster.
-    * Set the `readAll` data access rule for the `sample_restaurants.restaurants` collection.
-  1. Triggers
-    * Create two new triggers using the following implementations:
-    
-## Contributors ✨
-
-
-
+    - Create two new Atlas Triggers with the following configuration.
+      - [Analyze sentiment Atlas Trigger](./atlas-app-services/triggers/analyzeReviewSentiment.json)
+      - [Summarize reviews Atlas Trigger](./atlas-app-services/triggers/summarizeReviewsSentiment.json)
 
 ## Contributors ✨
 
