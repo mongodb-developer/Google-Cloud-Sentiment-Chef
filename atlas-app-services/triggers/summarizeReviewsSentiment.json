@@ -1,0 +1,27 @@
+{
+    "name": "summarizeReviewsSentiment",
+    "type": "DATABASE",
+    "config": {
+        "operation_types": [
+            "INSERT"
+        ],
+        "database": "sample_restaurants",
+        "collection": "processed_reviews",
+        "service_name": "M0",
+        "match": {},
+        "project": {},
+        "full_document": true,
+        "full_document_before_change": false,
+        "unordered": false,
+        "skip_catchup_events": false,
+        "tolerate_resume_errors": false
+    },
+    "disabled": false,
+    "event_processors": {
+        "FUNCTION": {
+            "config": {
+                "function_name": "Atlas_Triggers_summarizeReviewsSentiment_1686475894"
+            }
+        }
+    }
+}
