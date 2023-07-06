@@ -9,7 +9,7 @@ export class RealmAppService {
 
   async getAppInstance() {
     if (!RealmAppService.app) {
-      RealmAppService.app = new Realm.App({ id: 'data-rvcwy'});
+      RealmAppService.app = new Realm.App({ id: 'data-xuohq'});
 
       const credentials = Realm.Credentials.anonymous();
       await RealmAppService.app.logIn(credentials);

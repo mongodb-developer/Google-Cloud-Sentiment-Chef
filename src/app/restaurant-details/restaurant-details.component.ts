@@ -3,7 +3,7 @@ import { RestaurantService } from '../restaurant.service';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerReview, NewReview } from '../review';
 import { ReviewService } from '../review.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-restaurant-details',
