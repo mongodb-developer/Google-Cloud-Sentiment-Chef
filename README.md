@@ -14,6 +14,7 @@ Take a note of the deployed functions' URLs. You will need them later.
 
 ### MongoDB Atlas setup
 
+  1. Create a free [MongoDB Atlas account](https://www.mongodb.com/try?utm_campaign=devrel&utm_source=cross-post&utm_medium=cta&utm_content=gc-sentiment-analysis-demo&utm_term=stanimira.vlaeva).
   1. Database cluster
     - Deploy a new MongoDB database cluster in your Atlas account. You can use the free M0 tier for this demo.
     - Load the sample dataset.
