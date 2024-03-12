@@ -1,6 +1,6 @@
 # Generative AI Sentiment Analysis and Summarization
 
-This is a demo of a customer service chatbot using Generative AI through Google Cloud's Vertex AI PaLM APIs. The app also leverages MongoDB Atlas Search to look for relevant answers in a MongoDB Atlas database. Finally, the app can detect dissatisfied customers with sentiment analysis.
+This is a demo of a customer service chatbot using Generative AI through Google's Gemini model. 
 
 ## Quickstart
 

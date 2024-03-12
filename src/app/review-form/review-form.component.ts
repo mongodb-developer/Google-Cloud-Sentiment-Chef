@@ -4,6 +4,7 @@ import { BehaviorSubject, take } from 'rxjs';
 
 import { RawReview } from '../review';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { FileHandle } from '../drag-and-drop.directive';
 
 @Component({
   selector: 'app-review-form',
@@ -53,5 +54,17 @@ export class ReviewFormComponent implements OnInit {
       let control = this.reviewForm.controls[name];
       control.setErrors(null);
     });
+  }
+
+
+  files: FileHandle[] = [];
+
+  filesDropped(files: FileHandle[]): void {
+    this.files = files;
+  }
+
+  upload(): void {
+    console.log(this.files);
+    //get image upload file obj;
   }
 }

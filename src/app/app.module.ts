@@ -20,6 +20,7 @@ import { RestaurantsListComponent } from './restaurants-list/restaurants-list.co
 import { RestaurantDetailsComponent } from './restaurant-details/restaurant-details.component';
 import { ReviewFormComponent } from './review-form/review-form.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { DragAndDropDirective } from './drag-and-drop.directive';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     RestaurantDetailsComponent,
     ReviewFormComponent,
     NavbarComponent,
+    DragAndDropDirective,
   ],
   imports: [
     BrowserModule,

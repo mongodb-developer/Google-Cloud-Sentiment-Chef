@@ -8,3 +8,52 @@
     font-size: 20px;
     border-radius: 30px;
 }
+
+.dropzone {
+    margin: 20px 0;
+    border-radius: 6px;
+    min-height: 200px;
+    min-width: 400px;
+    display: table;
+    width: 100%;
+    background-color: #eee;
+    border: dotted 1px #aaa;
+
+    .text-wrapper {
+        display: table-cell;
+        vertical-align: middle;
+
+        div {
+            font-weight: bold;
+            text-align: center;
+        }
+    }
+}
+
+.photos-preview {
+    margin: 20px 0;
+    grid-gap: 16px 16px;
+    display: grid;
+    grid-template-columns: repeat(4, 186px);
+
+    .photo-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: black;
+        height: 124px;
+        position: relative;
+        width: 186px;
+        border-radius: 6px;
+
+        img {
+            max-height: 124px;
+            max-width: 100%;
+            object-fit: cover;
+            object-position: center;
+            height: auto !important;
+            width: auto !important;
+        }
+
+    }
+}

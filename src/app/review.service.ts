@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RealmAppService } from './realm-app.service';
 import { CustomerReview, NewReview, RawReview } from './review';
 import { ObjectId } from './helpers/objectId';
-import { filter, map } from 'rxjs';
+import { filter, map, tap } from 'rxjs';
 import { fromChangeEvent } from './rxjs-operators';
 import { isInsertEvent } from './change-events';
 
@@ -15,7 +15,7 @@ export class ReviewService {
   private async getWriteCollection() {
     const realmApp = await this.realmAppService.getAppInstance();
 
-    const collection = realmApp?.currentUser?.mongoClient('FreeCluster')?.db('sample_restaurants')?.collection<RawReview>('raw_reviews');
+    const collection = realmApp?.currentUser?.mongoClient('M0')?.db('sample_restaurants')?.collection<RawReview>('raw_reviews');
 
     if (!collection) {
       throw new Error('Failed to connect to Realm App');
@@ -27,7 +27,7 @@ export class ReviewService {
   private async getReadCollection() {
     const realmApp = await this.realmAppService.getAppInstance();
 
-    const collection = realmApp?.currentUser?.mongoClient('FreeCluster')?.db('sample_restaurants')?.collection<CustomerReview>('processed_reviews');
+    const collection = realmApp?.currentUser?.mongoClient('M0')?.db('sample_restaurants')?.collection<CustomerReview>('processed_reviews');
 
     if (!collection) {
       throw new Error('Failed to connect to Realm App');
@@ -61,7 +61,8 @@ export class ReviewService {
     return fromChangeEvent(watcher)
       .pipe(
         filter(isInsertEvent),
-        map(event => ({...event.fullDocument}))
+        map(event => ({...event.fullDocument})),
+        tap(review => console.log('New review:', review))
       )
   }
 

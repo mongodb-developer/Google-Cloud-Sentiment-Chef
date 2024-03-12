@@ -6,9 +6,23 @@
 
     <mat-form-field appearance="outline">
         <mat-label>Review</mat-label>
-        <textarea matInput formControlName="text" 
-            rows="5" required></textarea>
+        <textarea matInput formControlName="text" rows="5" required></textarea>
     </mat-form-field>
 
-    <button class="submit-review" mat-raised-button color="primary" type="submit" [disabled]="reviewForm.invalid">Submit review</button>
+    <button class="submit-review" mat-raised-button color="primary" type="submit" [disabled]="reviewForm.invalid">Submit
+        review</button>
 </form>
+
+<div *ngIf="!files.length" class="dropzone" appDrag (files)="filesDropped($event)">
+    <div class="text-wrapper">
+        <div>Drag and drop your photos here</div>
+    </div>
+</div>
+
+<div class="photos-preview">
+    <div class="photo-wrapper" *ngFor="let file of files">
+        <img *ngIf="file" [src]="file.url">
+    </div>
+</div>
+
+<button type="button" (click)="upload()">Upload Image</button>
