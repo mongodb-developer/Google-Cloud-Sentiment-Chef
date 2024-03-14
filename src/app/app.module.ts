@@ -21,6 +21,7 @@ import { RestaurantDetailsComponent } from './restaurant-details/restaurant-deta
 import { ReviewFormComponent } from './review-form/review-form.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DragAndDropDirective } from './drag-and-drop.directive';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { DragAndDropDirective } from './drag-and-drop.directive';
     MatFormFieldModule,
     MatNativeDateModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [
     provideImgixLoader("***REMOVED***"),

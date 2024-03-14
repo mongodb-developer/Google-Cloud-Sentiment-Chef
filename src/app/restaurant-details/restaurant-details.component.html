@@ -46,6 +46,7 @@
                                     />
                                     <span>{{ review.name }}</span>
                                 </div>
+
                                 <div class="restaurant-review-details">
                                     <div class="restaurant-review-details-header">
 
@@ -59,7 +60,22 @@
                                     </div>
 
                                     <span class="restaurant-review-text">{{review.text}}</span>
-
+                                    <div class="photos">
+                                        <div class="photos-preview">
+                                            <div class="photo-wrapper" *ngFor="let file of review.images">
+                                                <div *ngIf="file.mimeType.includes('video'); else imageBlock">
+                                                    <video width="186" height="124" controls>
+                                                        <source [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName" [type]="file.mimeType">
+                                                        Your browser does not support the video tag.
+                                                    </video>
+                                                </div>
+                                                <ng-template #imageBlock>
+                                                    <img [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName">
+                                                </ng-template>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="restaurant-review-scores">
                                         <span>Food </span>
                                         <span class="text-accent">{{ review.food || 'Not specified' }}</span> ·
@@ -67,8 +83,12 @@
                                         <span>Service </span>
                                         <span class="text-accent">{{ review.service || 'Not specified' }}</span> ·
 
-                                        <span>Atmosphere </span>
+                                        <span> Atmosphere </span>
                                         <span class="text-accent">{{ review.interior || 'Not specified' }}</span>
+                                    </div>
+                                    <div *ngIf="review?.tags?.length" class="restaurant-review-tags">
+                                        <span class="text-bold">️Tags: </span>
+                                        <span>{{ review.tags?.join(', ') }}</span>
                                     </div>
                                 </div>
                                 <mat-divider></mat-divider>

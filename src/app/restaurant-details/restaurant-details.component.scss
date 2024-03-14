@@ -105,6 +105,7 @@
 
     .restaurant-review-scores {
         font-weight: bold;
+        margin-bottom: 20px;
     }
 }
 
@@ -184,4 +185,9 @@
         }
 
     }
+}
+
+
+.photos-preview {
+    grid-template-columns: repeat(3, 186px);
 }

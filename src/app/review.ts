@@ -4,6 +4,8 @@ export interface NewReview {
     name: string;
     text: string;
     date: string;
+    images?: { fileName: string, mimeType: string }[];
+    tags?: string[];
 }
 
 export interface RawReview extends NewReview {

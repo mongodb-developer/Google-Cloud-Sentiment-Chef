@@ -9,20 +9,28 @@
         <textarea matInput formControlName="text" rows="5" required></textarea>
     </mat-form-field>
 
-    <button class="submit-review" mat-raised-button color="primary" type="submit" [disabled]="reviewForm.invalid">Submit
+    <div *ngIf="!fileHandles.length" class="dropzone" appDrag (files)="filesDropped($event)">
+        <div class="text-wrapper">
+            <div>Drag and drop your photos here</div>
+        </div>
+    </div>
+
+    <div class="photos-preview">
+        <div class="photo-wrapper" *ngFor="let handle of fileHandles">
+            <div *ngIf="handle.file.type.includes('video'); else imageBlock">
+                <video width="186" height="124" controls>
+                    <source [src]="handle.url"
+                        [type]="handle.file.type">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <ng-template #imageBlock>
+                <img [src]="handle.url">
+            </ng-template>
+
+        </div>
+    </div>
+
+    <button class="submit-review" mat-raised-button color="primary" type="submit" [disabled]="reviewForm.invalid || uploading">Submit
         review</button>
 </form>
-
-<div *ngIf="!files.length" class="dropzone" appDrag (files)="filesDropped($event)">
-    <div class="text-wrapper">
-        <div>Drag and drop your photos here</div>
-    </div>
-</div>
-
-<div class="photos-preview">
-    <div class="photo-wrapper" *ngFor="let file of files">
-        <img *ngIf="file" [src]="file.url">
-    </div>
-</div>
-
-<button type="button" (click)="upload()">Upload Image</button>

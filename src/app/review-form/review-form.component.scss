@@ -29,31 +29,3 @@
         }
     }
 }
-
-.photos-preview {
-    margin: 20px 0;
-    grid-gap: 16px 16px;
-    display: grid;
-    grid-template-columns: repeat(4, 186px);
-
-    .photo-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: black;
-        height: 124px;
-        position: relative;
-        width: 186px;
-        border-radius: 6px;
-
-        img {
-            max-height: 124px;
-            max-width: 100%;
-            object-fit: cover;
-            object-position: center;
-            height: auto !important;
-            width: auto !important;
-        }
-
-    }
-}

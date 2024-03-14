@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, NgZone, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, take } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { RawReview } from '../review';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FileHandle } from '../drag-and-drop.directive';
+import { ImageUplouderService } from '../image-uplouder.service';
 
 @Component({
   selector: 'app-review-form',
@@ -30,6 +31,7 @@ export class ReviewFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private imageUploader: ImageUplouderService
   ) { }
 
   ngOnInit(): void {
@@ -44,10 +46,12 @@ export class ReviewFormComponent implements OnInit {
   submitForm() {
     this.formSubmitted.emit({
       ...this.reviewForm.value,
-      date: new Date()
+      date: new Date(),
+      images: this.uploadedImages
     });
 
     this.reviewForm.reset();
+    this.resetUploader();
 
     this.reviewForm.markAsUntouched();
     Object.keys(this.reviewForm.controls).forEach((name) => {
@@ -56,15 +60,38 @@ export class ReviewFormComponent implements OnInit {
     });
   }
 
+  fileHandles: FileHandle[] = [];
+  uploadedImages: { fileName: string, mimeType: string }[] = [];
+  uploading = false;
 
-  files: FileHandle[] = [];
+  filesDropped(fileHandles: FileHandle[]): void {
+    this.fileHandles = fileHandles;
+    this.upload();
+  }
 
-  filesDropped(files: FileHandle[]): void {
-    this.files = files;
+  resetUploader() {
+    this.fileHandles = [];
+    this.uploadedImages = [];
   }
 
   upload(): void {
-    console.log(this.files);
-    //get image upload file obj;
+    const promises = [];
+    for (let fileHandle of this.fileHandles) {
+      this.uploading = true;
+
+      const promise = this.imageUploader.upload(fileHandle.file)
+          .then((result) => {
+            this.uploadedImages.push({ fileName: result.fileName, mimeType: fileHandle.file.type });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+
+      promises.push(promise);
+    }
+
+    Promise.all(promises).then(() => {
+      this.uploading = false;
+    });
   }
 }
