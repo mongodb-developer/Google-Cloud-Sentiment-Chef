@@ -5,7 +5,9 @@ import { BehaviorSubject } from 'rxjs';
 import { RawReview } from '../review';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FileHandle } from '../drag-and-drop.directive';
-import { ImageUplouderService } from '../image-uplouder.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MediaUploadDialogComponent } from '../media-upload-dialog/media-upload-dialog.component';
+import { UploudedImage } from '../uplouded-image';
 
 @Component({
   selector: 'app-review-form',
@@ -30,8 +32,8 @@ export class ReviewFormComponent implements OnInit {
   get text() { return this.reviewForm.get('text')!; }
 
   constructor(
+    public dialog: MatDialog,
     private fb: FormBuilder,
-    private imageUploader: ImageUplouderService
   ) { }
 
   ngOnInit(): void {
@@ -61,37 +63,24 @@ export class ReviewFormComponent implements OnInit {
   }
 
   fileHandles: FileHandle[] = [];
-  uploadedImages: { fileName: string, mimeType: string }[] = [];
+  uploadedImages: Array<UploudedImage> = [];
   uploading = false;
 
   filesDropped(fileHandles: FileHandle[]): void {
-    this.fileHandles = fileHandles;
-    this.upload();
+    this.uploading = true;
+    const dialogRef = this.dialog.open(MediaUploadDialogComponent, {
+      data: { fileHandles },
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.uploadedImages = result;
+      this.uploading = false;
+    });
   }
 
   resetUploader() {
     this.fileHandles = [];
     this.uploadedImages = [];
-  }
-
-  upload(): void {
-    const promises = [];
-    for (let fileHandle of this.fileHandles) {
-      this.uploading = true;
-
-      const promise = this.imageUploader.upload(fileHandle.file)
-          .then((result) => {
-            this.uploadedImages.push({ fileName: result.fileName, mimeType: fileHandle.file.type });
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-
-      promises.push(promise);
-    }
-
-    Promise.all(promises).then(() => {
-      this.uploading = false;
-    });
   }
 }

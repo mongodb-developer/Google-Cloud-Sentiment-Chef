@@ -16,16 +16,17 @@
     </div>
 
     <div class="photos-preview">
-        <div class="photo-wrapper" *ngFor="let handle of fileHandles">
-            <div *ngIf="handle.file.type.includes('video'); else imageBlock">
+        <div class="photo-wrapper" *ngFor="let file of uploadedImages">
+            <div *ngIf="file.mimeType.includes('video'); else imageBlock">
                 <video width="186" height="124" controls>
-                    <source [src]="handle.url"
-                        [type]="handle.file.type">
+                    <source 
+                        [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName"
+                        [type]="file.mimeType">
                     Your browser does not support the video tag.
                 </video>
             </div>
             <ng-template #imageBlock>
-                <img [src]="handle.url">
+                <img [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName" />
             </ng-template>
 
         </div>

@@ -1,0 +1,55 @@
+.dialog-container {
+    min-width: 1000px;
+    min-height: 800px;
+}
+
+h2 {
+    font-size: 30px !important;
+    margin: 30px;
+}
+
+.photos-preview {
+    margin: 20px 0;
+    grid-gap: 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .photo-row {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 30px;
+        justify-items: center;
+
+        .photo-wrapper {
+            background-color: black;
+            height: 200px;
+            position: relative;
+            width: 250px;
+            border-radius: 6px;
+        }
+
+        img {
+            max-height: 200px;
+            max-width: 100%;
+            object-fit: cover;
+            object-position: center;
+            height: auto !important;
+            width: auto !important;
+            border-radius: 6px;
+        }
+    }
+
+    .description {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        max-width: 600px;
+
+        h3 {
+            font-weight: bold;
+            font-size: 18px;
+        }
+    }
+}

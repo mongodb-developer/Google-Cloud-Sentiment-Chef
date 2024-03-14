@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { ReviewFormComponent } from './review-form/review-form.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DragAndDropDirective } from './drag-and-drop.directive';
 import { HttpClientModule } from '@angular/common/http';
+import { MediaUploadDialogComponent } from './media-upload-dialog/media-upload-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReviewFormComponent,
     NavbarComponent,
     DragAndDropDirective,
+    MediaUploadDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatNativeDateModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatDialogModule,
   ],
   providers: [
     provideImgixLoader("***REMOVED***"),

@@ -9,20 +9,24 @@ export class ImageUplouderService {
   constructor(private http: HttpClient) { }
 
   upload(file: File) {
-    return new Promise<{ fileName: string, response: string }>(async (resolve, reject) => {
+    return new Promise<{ fileName: string, analysis: any }>(async (resolve, reject) => {
       const fileName = `reviews/${Date.now()}-${Math.floor(Math.random() * 100000)}.${file.name.split('.').pop()}`;
 
       const signedUrl = await this.createSignedUrl(fileName, file.type);
       const xhr = new XMLHttpRequest();
       xhr.open('PUT', signedUrl, true);
 
-      xhr.onload = () => {
+      xhr.onload = async () => {
         const status = xhr.status;
         if (status === 200) {
-          return resolve({
+          const analysis = await this.analyzeImage(fileName, file.type);
+          const response = {
             fileName,
-            response: xhr.response
-          });
+            analysis
+          };
+
+          return resolve(response);
+
         } else {
           return reject({
             status: xhr.status,
@@ -42,6 +46,16 @@ export class ImageUplouderService {
       xhr.setRequestHeader('Content-Type', file.type);
       xhr.send(file);
     });
+  }
+
+  private analyzeImage(fileName: string, fileType: string) {
+    return firstValueFrom(this.http.get(
+        'https://us-central1-atlas-ai-demos.cloudfunctions.net/analyzeMedia',
+        {
+          params: { fileName, fileType },
+          responseType: 'json'
+        }
+      ));
   }
 
   private createSignedUrl(fileName: string, fileType: string) {

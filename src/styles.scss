@@ -16,13 +16,26 @@ body {
     color: #2d333f;
 }
 
-body, span, p,
+body,
+span,
+p,
 .mat-mdc-card,
-.mat-h3, .mat-subtitle-1, .mat-typography .mat-h3, .mat-typography .mat-subtitle-1, .mat-typography h3,
-.mat-h2, .mat-headline-6, .mat-typography .mat-h2, .mat-typography .mat-headline-6, .mat-typography h2,
-.mat-body, .mat-body-2, .mat-typography .mat-body, .mat-typography .mat-body-2, .mat-typography,
-ngx-guided-tour .tour-step .tour-buttons .next-button
-{
+.mat-h3,
+.mat-subtitle-1,
+.mat-typography .mat-h3,
+.mat-typography .mat-subtitle-1,
+.mat-typography h3,
+.mat-h2,
+.mat-headline-6,
+.mat-typography .mat-h2,
+.mat-typography .mat-headline-6,
+.mat-typography h2,
+.mat-body,
+.mat-body-2,
+.mat-typography .mat-body,
+.mat-typography .mat-body-2,
+.mat-typography,
+ngx-guided-tour .tour-step .tour-buttons .next-button {
     font-family: "Euclid Circular A", Roboto, "Helvetica Neue", sans-serif;
 }
 
@@ -76,7 +89,8 @@ ngx-guided-tour .tour-step .tour-buttons .next-button {
         margin-top: 20px;
     }
 
-    .restaurant-card-details > span, mat-card-actions > a {
+    .restaurant-card-details>span,
+    mat-card-actions>a {
         padding: 0 20px;
         font-size: 20px;
         line-height: 36px;
