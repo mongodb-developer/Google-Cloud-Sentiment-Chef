@@ -3,7 +3,9 @@ import { RestaurantService } from '../restaurant.service';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerReview, NewReview } from '../review';
 import { ReviewService } from '../review.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { SearchService } from '../search.service';
 
 @Component({
   selector: 'app-restaurant-details',
@@ -16,15 +18,28 @@ export class RestaurantDetailsComponent {
   reviews: CustomerReview[] = [];
   restaurantWatcher: Subscription;
   reviewsWatcher: Subscription;
+  filteredReviews$: Observable<CustomerReview[]>;
 
   constructor(
     private route: ActivatedRoute,
     private restaurantService: RestaurantService,
     private reviewService: ReviewService,
+    private searchService: SearchService,
+    private fb: FormBuilder,
   ) {
   }
 
   async ngOnInit() {
+    this.filteredReviews$ = this.search(this.searchForm.controls.query);
+
+    this.filteredReviews$.subscribe({
+      next: async reviews => {
+        // Stop watching for new reviews when the user starts searching
+        this.reviewsWatcher?.unsubscribe();
+        this.reviews = reviews;
+      }
+    });
+
     this.route.paramMap.subscribe({
       next: async params => {
         const id = params.get('id');
@@ -59,5 +74,19 @@ export class RestaurantDetailsComponent {
 
   addReview(review: NewReview) {
     this.reviewService.insertOne(this.currentId, review);
+  }
+
+  searchForm = this.fb.group({
+    query: ['', Validators.required],
+  });
+
+  private search(formControl: FormControl<any>) {
+    return formControl.valueChanges.pipe(
+      filter(text => text!.length > 1),
+      debounceTime(250),
+      distinctUntilChanged(),
+      switchMap(searchTerm => this.searchService.searchReviews(this.currentId, searchTerm)),
+
+    );
   }
 }

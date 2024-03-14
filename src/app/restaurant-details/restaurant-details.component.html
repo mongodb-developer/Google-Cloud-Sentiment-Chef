@@ -8,7 +8,9 @@
             <div>
                 <mat-card class="restaurant-card restaurant-card-details-page restaurant-card-header-details">
                     <mat-card-header>
-                        <mat-card-title><h2>Overview</h2></mat-card-title>
+                        <mat-card-title>
+                            <h2>Overview</h2>
+                        </mat-card-title>
                     </mat-card-header>
                     <mat-divider></mat-divider>
                     <mat-card-content>
@@ -36,14 +38,21 @@
                         </div>
 
                         <h3 *ngIf="reviews.length">Customer Reviews with AI Sentiment Analysis</h3>
+
+                        <form [formGroup]="searchForm" class="search-form">
+                            <mat-form-field>
+                                <mat-label>Search</mat-label>
+                                <mat-icon matPrefix>search</mat-icon>
+                                <input placeholder="Search" matInput formControlName="query" required type="search">
+                            </mat-form-field>
+                        </form>
+
+
                         <div class="restaurant-reviews">
                             <div class="restaurant-review" *ngFor="let review of reviews">
                                 <div class="restaurant-review-user">
-                                    <img
-                                        src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg"
-                                        width="150"
-                                        height="150"
-                                    />
+                                    <img src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg"
+                                        width="150" height="150" />
                                     <span>{{ review.name }}</span>
                                 </div>
 
@@ -51,9 +60,12 @@
                                     <div class="restaurant-review-details-header">
 
                                         <ng-container [ngSwitch]="review.sentiment">
-                                            <span class="positive-text" *ngSwitchCase="'positive'">Positive sentiment 🤩</span>
-                                            <span class="negative-text" *ngSwitchCase="'negative'">Negative sentiment 😢</span>
-                                            <span class="neutral-text" *ngSwitchCase="'neutral'">Neutral sentiment 😐</span>
+                                            <span class="positive-text" *ngSwitchCase="'positive'">Positive sentiment
+                                                🤩</span>
+                                            <span class="negative-text" *ngSwitchCase="'negative'">Negative sentiment
+                                                😢</span>
+                                            <span class="neutral-text" *ngSwitchCase="'neutral'">Neutral sentiment
+                                                😐</span>
                                         </ng-container>
 
                                         <span>Reviewed on {{review.date | date: 'mediumDate'}}</span>
@@ -65,14 +77,17 @@
                                             <div class="photo-wrapper" *ngFor="let file of review.images">
                                                 <div *ngIf="file.mimeType.includes('video'); else imageBlock">
                                                     <video width="186" height="124" controls>
-                                                        <source [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName" [type]="file.mimeType">
+                                                        <source
+                                                            [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName"
+                                                            [type]="file.mimeType">
                                                         Your browser does not support the video tag.
                                                     </video>
                                                 </div>
                                                 <ng-template #imageBlock>
-                                                    <img [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName">
+                                                    <img
+                                                        [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName">
                                                 </ng-template>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -94,9 +109,7 @@
                                 <mat-divider></mat-divider>
 
                             </div>
-
                         </div>
-
                     </mat-card-content>
                 </mat-card>
 
@@ -167,11 +180,10 @@
                                 <div><span>🎂 Atmosphere</span><span>⭐⭐⭐⭐⭐</span></div>
                             </div>
                         </mat-card-content>
-
-
                     </mat-card>
 
-                    <mat-card *ngIf="restaurant.summary" class="restaurant-card restaurant-card-details-page restaurant-card-summary">
+                    <mat-card *ngIf="restaurant.summary"
+                        class="restaurant-card restaurant-card-details-page restaurant-card-summary">
                         <mat-card-header>
                             <mat-card-title>
                                 <h2>AI-Generated Summary</h2>
@@ -184,12 +196,8 @@
                         <mat-card-actions>
                         </mat-card-actions>
                     </mat-card>
-
-
                 </div>
-
             </div>
-
         </section>
     </div>
 </div>

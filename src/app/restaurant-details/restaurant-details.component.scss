@@ -191,3 +191,9 @@
 .photos-preview {
     grid-template-columns: repeat(3, 186px);
 }
+
+.search-form {
+    .mat-mdc-form-field {
+        width: 100%;
+    }
+}

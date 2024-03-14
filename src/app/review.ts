@@ -1,4 +1,5 @@
 import { BSON } from 'realm-web';
+import { UploudedImage } from './uplouded-image';
 
 export interface NewReview {
     name: string;
@@ -19,4 +20,5 @@ export interface CustomerReview extends RawReview {
     service: number;
     interior: number;
     total: number;
+    images: UploudedImage[];
 }
