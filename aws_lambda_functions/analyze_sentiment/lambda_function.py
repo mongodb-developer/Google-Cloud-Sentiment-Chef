@@ -14,17 +14,14 @@ sagemaker = boto3.client("sagemaker-runtime", region_name=_REGION)
 def lambda_handler(event, context):
     print(f"{event=}")
     try:
-        query_param = event.get("queryStringParameters", {}).get("query", "")
+        body = json.loads(event.get("body", "{}"))
 
-        if query_param:
-            completion: Dict[str, int] = get_completion(query_param)
+        input_query = body.get("query", "")
+        if input_query:
+            completion: Dict[str, int] = get_completion(input_query)
             return {"statusCode": 200, "body": json.dumps(completion)}
-
         else:
-            return {
-                "statusCode": 400,
-                "body": json.dumps({"error": "No query parameter provided."}),
-            }
+            return {"statusCode": 400, "body": json.dumps({"error": "No input data provided."})}
 
     except Exception as e:
         return {"statusCode": 500, "body": json.dumps({"error": str(e)})}

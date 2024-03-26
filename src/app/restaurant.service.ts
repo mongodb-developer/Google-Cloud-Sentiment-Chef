@@ -15,7 +15,10 @@ export class RestaurantService {
   private async getCollection() {
     const realmApp = await this.realmAppService.getAppInstance();
 
-    const collection = realmApp?.currentUser?.mongoClient('M0')?.db('sample_restaurants')?.collection<Restaurant>('restaurants');
+    const currentUser = realmApp?.currentUser;
+    const mongoDB = currentUser?.mongoClient('M0');
+    const db = mongoDB?.db('sample_restaurants');
+    const collection = db?.collection<Restaurant>('restaurants');
 
     if (!collection) {
       throw new Error('Failed to connect to Realm App');
