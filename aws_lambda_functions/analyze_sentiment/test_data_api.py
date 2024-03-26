@@ -4,20 +4,20 @@ import requests
 
 
 def test_data_api():
-    url = "***REMOVED***"
+    url = "https://us-east-1.aws.data.mongodb-api.com/app/***REMOVED***/endpoint/data/v1/action/findOne"
 
     payload = json.dumps(
         {
             "collection": "restaurants",
             "database": "sample_restaurants",
-            "dataSource": "Cluster0",
+            "dataSource": "mongodb-atlas",
             "projection": {"_id": 1},
         }
     )
     headers = {
         "Content-Type": "application/json",
         "Access-Control-Request-Headers": "*",
-        "api-key": "***REMOVED***",
+        # "api-key": "***REMOVED***",
         "Accept": "application/ejson",
     }
 

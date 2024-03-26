@@ -16,7 +16,7 @@ export class RestaurantService {
     const realmApp = await this.realmAppService.getAppInstance();
 
     const currentUser = realmApp?.currentUser;
-    const mongoDB = currentUser?.mongoClient('M0');
+    const mongoDB = currentUser?.mongoClient('mongodb-atlas');
     const db = mongoDB?.db('sample_restaurants');
     const collection = db?.collection<Restaurant>('restaurants');
 

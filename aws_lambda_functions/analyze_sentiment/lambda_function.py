@@ -15,8 +15,8 @@ def lambda_handler(event, context):
     print(f"{event=}")
     try:
         body = json.loads(event.get("body", "{}"))
-
-        input_query = body.get("query", "")
+        body_json = json.loads(body)
+        input_query = body_json.get("query", "")
         if input_query:
             completion: Dict[str, int] = get_completion(input_query)
             return {"statusCode": 200, "body": json.dumps(completion)}

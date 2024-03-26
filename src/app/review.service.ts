@@ -15,7 +15,7 @@ export class ReviewService {
   private async getWriteCollection() {
     const realmApp = await this.realmAppService.getAppInstance();
 
-    const collection = realmApp?.currentUser?.mongoClient('M0')?.db('sample_restaurants')?.collection<RawReview>('raw_reviews');
+    const collection = realmApp?.currentUser?.mongoClient('mongodb-atlas')?.db('sample_restaurants')?.collection<RawReview>('raw_reviews');
 
     if (!collection) {
       throw new Error('Failed to connect to Realm App');
@@ -27,7 +27,7 @@ export class ReviewService {
   private async getReadCollection() {
     const realmApp = await this.realmAppService.getAppInstance();
 
-    const collection = realmApp?.currentUser?.mongoClient('M0')?.db('sample_restaurants')?.collection<CustomerReview>('processed_reviews');
+    const collection = realmApp?.currentUser?.mongoClient('mongodb-atlas')?.db('sample_restaurants')?.collection<CustomerReview>('processed_reviews');
 
     if (!collection) {
       throw new Error('Failed to connect to Realm App');

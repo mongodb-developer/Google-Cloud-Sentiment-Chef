@@ -1,51 +1,76 @@
-const serviceName = "M0";
+const serviceName = "mongodb-atlas";
 const databaseName = "sample_restaurants";
 const collectionName = "processed_reviews";
-// Add the Google Cloud Function URL below
-const analyzeSentimentFunctionURL = "<google-cloud-function-endpoint>";
+const analyzeSentimentFunctionURL = "***REMOVED***";
 
 exports = async function(changeEvent) {
+  console.log("Trigger function started");
+
   const fullDocument = changeEvent?.fullDocument;
   const text = fullDocument?.text;
 
   if (!text) {
+    console.error("Error: Review text is required");
     throw new Error("Review text is required");
   }
 
-  const response = await context.http.post({
-    url: analyzeSentimentFunctionURL,
-    body: { text },
-    encodeBodyAsJSON: true
-  });
-  
-  let analysis;
+  console.log("Sending text to sentiment analysis:", text);
+
+  let response;
+  try {
+    response = await context.http.post({
+      url: analyzeSentimentFunctionURL,
+      body: JSON.stringify({ query: text }), // Adjusted as per previous correction
+      encodeBodyAsJSON: true
+    });
+  } catch (error) {
+    console.error("Error calling sentiment analysis service:", error);
+    throw new Error("Error calling sentiment analysis service");
+  }
+
+  console.log("Received response from sentiment analysis");
+
   let parsedResponse;
   try {
-    // The response body is a BSON.Binary object.
-    analysis = EJSON.parse(response?.body?.text())?.sentiment;
-    parsedResponse = JSON.parse(analysis);
+    if(response?.body?.text()) {
+      console.log("Response body text:", response.body.text());
+      parsedResponse = EJSON.parse(response.body.text());
+      console.log("Parsed response:", parsedResponse);
+    } else {
+      console.error("Response body is empty or unable to call text() on it");
+      throw new Error("Response body is empty or unable to call text() on it");
+    }
   } catch (error) {
-    throw new Error("Parsing sentiment analysis failed. " + analysis);
+    console.error("Parsing sentiment analysis failed. Error:", error);
+    throw new Error("Parsing sentiment analysis failed.");
   }
-  
+
   if (!parsedResponse) {
+    console.error("Sentiment analysis failed. Parsed response is undefined.");
     throw new Error("Sentiment analysis failed.");
   }
-  
+
   if (parsedResponse?.sentiment === "Invalid review" || !parsedResponse?.sentiment) {
+    console.error("Invalid review:", text);
     throw new Error("Invalid review: ", text);
   }
 
   const collection = context?.services?.get(serviceName)?.db(databaseName)?.collection(collectionName);
-
   if (!collection) {
+    console.error("Fetching destination collection failed.");
     throw new Error("Fetching destination collection failed.");
   }
-  
-  await collection.insertOne({
-    ...fullDocument,
-    ...parsedResponse
-  });
-  
+
+  try {
+    await collection.insertOne({
+      ...fullDocument,
+      ...parsedResponse
+    });
+    console.log("Document inserted into collection successfully");
+  } catch (error) {
+    console.error("Inserting document into collection failed:", error);
+    throw new Error("Inserting document into collection failed");
+  }
+
   return parsedResponse;
 };
