@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { FileHandle } from '../drag-and-drop.directive';
 import { ImageUplouderService } from '../image-uplouder.service';
-import { UploudedImage } from '../uplouded-image';
+import { UploadedMedia } from '../uploaded-media';
 
 export interface MediaUploadDialogData {
   fileHandles: FileHandle[];
@@ -17,7 +17,7 @@ export class MediaUploadDialogComponent {
   fileHandles: FileHandle[] = [];
   uploading = false;
   allFailed = false;
-  uploadedImages: Array<UploudedImage> = [];
+  uploadedImages: Array<UploadedMedia> = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: MediaUploadDialogData,

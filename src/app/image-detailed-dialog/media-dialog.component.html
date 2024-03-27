@@ -1,0 +1,14 @@
+<mat-dialog-content class="dialog-content mat-typography">
+    <app-media-preview [file]="file" size="big">
+    </app-media-preview>
+
+    <div class="description">
+        <h2>AI-generated description and tags</h2>
+        <span>{{ file.description }}</span>
+        <span><span class="text-bold">Tags: </span>{{ file.tags.join(", ") }}</span>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="">Close</button>
+</mat-dialog-actions>

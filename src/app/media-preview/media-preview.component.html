@@ -1,0 +1,16 @@
+<div (click)="openDetailsDialog()" class="details-button" role="button" tabindex="0" class="media-wrapper"
+    [ngClass]="size">
+    <ng-container *ngIf="file.mimeType.includes('video'); then videoBlock; else imageBlock"></ng-container>
+
+    <ng-template #videoBlock>
+        <video controls>
+            <source [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName"
+                [type]="file.mimeType">
+            Your browser does not support the video tag.
+        </video>
+    </ng-template>
+
+    <ng-template #imageBlock>
+        <img [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName" />
+    </ng-template>
+</div>

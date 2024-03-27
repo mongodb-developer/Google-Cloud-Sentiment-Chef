@@ -39,14 +39,13 @@
 
                         <h3 *ngIf="reviews.length">Customer Reviews with AI Sentiment Analysis</h3>
 
-                        <form [formGroup]="searchForm" class="search-form">
+                        <form *ngIf="reviews.length" [formGroup]="searchForm" class="search-form">
                             <mat-form-field>
                                 <mat-label>Search</mat-label>
                                 <mat-icon matPrefix>search</mat-icon>
                                 <input placeholder="Search" matInput formControlName="query" required type="search">
                             </mat-form-field>
                         </form>
-
 
                         <div class="restaurant-reviews">
                             <div class="restaurant-review" *ngFor="let review of reviews">
@@ -72,23 +71,11 @@
                                     </div>
 
                                     <span class="restaurant-review-text">{{review.text}}</span>
-                                    <div class="photos">
-                                        <div class="photos-preview">
-                                            <div class="photo-wrapper" *ngFor="let file of review.images">
-                                                <div *ngIf="file.mimeType.includes('video'); else imageBlock">
-                                                    <video width="186" height="124" controls>
-                                                        <source
-                                                            [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName"
-                                                            [type]="file.mimeType">
-                                                        Your browser does not support the video tag.
-                                                    </video>
-                                                </div>
-                                                <ng-template #imageBlock>
-                                                    <img
-                                                        [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName">
-                                                </ng-template>
+                                    <div class="media">
+                                        <div class="media-preview">
 
-                                            </div>
+                                            <app-media-preview *ngFor="let file of review.images" [file]="file" size="small">
+                                            </app-media-preview>
                                         </div>
                                     </div>
                                     <div class="restaurant-review-scores">

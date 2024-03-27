@@ -8,36 +8,18 @@ h2 {
     margin: 30px;
 }
 
-.photos-preview {
+.media-preview {
     margin: 20px 0;
     grid-gap: 16px 16px;
     display: flex;
     flex-direction: column;
     gap: 30px;
 
-    .photo-row {
+    .media-row {
         display: grid;
         grid-template-columns: 1fr 2fr;
         gap: 30px;
         justify-items: center;
-
-        .photo-wrapper {
-            background-color: black;
-            height: 200px;
-            position: relative;
-            width: 250px;
-            border-radius: 6px;
-        }
-
-        img {
-            max-height: 200px;
-            max-width: 100%;
-            object-fit: cover;
-            object-position: center;
-            height: auto !important;
-            width: auto !important;
-            border-radius: 6px;
-        }
     }
 
     .description {

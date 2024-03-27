@@ -24,6 +24,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { DragAndDropDirective } from './drag-and-drop.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { MediaUploadDialogComponent } from './media-upload-dialog/media-upload-dialog.component';
+import { MediaDialog } from './image-detailed-dialog/media-dialog.component';
+import { MediaPreviewComponent } from './media-preview/media-preview.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { MediaUploadDialogComponent } from './media-upload-dialog/media-upload-d
     NavbarComponent,
     DragAndDropDirective,
     MediaUploadDialogComponent,
+    MediaDialog,
+    MediaPreviewComponent,
   ],
   imports: [
     BrowserModule,

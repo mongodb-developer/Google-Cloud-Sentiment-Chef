@@ -11,25 +11,13 @@
 
     <div *ngIf="!fileHandles.length" class="dropzone" appDrag (files)="filesDropped($event)">
         <div class="text-wrapper">
-            <div>Drag and drop your photos here</div>
+            <div>Drag and drop your media here</div>
         </div>
     </div>
 
-    <div class="photos-preview">
-        <div class="photo-wrapper" *ngFor="let file of uploadedImages">
-            <div *ngIf="file.mimeType.includes('video'); else imageBlock">
-                <video width="186" height="124" controls>
-                    <source 
-                        [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName"
-                        [type]="file.mimeType">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            <ng-template #imageBlock>
-                <img [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName" />
-            </ng-template>
-
-        </div>
+    <div class="media-preview">
+        <app-media-preview *ngFor="let file of uploadedImages" [file]="file" size="small">
+        </app-media-preview>
     </div>
 
     <button class="submit-review" mat-raised-button color="primary" type="submit" [disabled]="reviewForm.invalid || uploading">Submit

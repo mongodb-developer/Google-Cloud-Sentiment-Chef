@@ -1,30 +1,13 @@
 <div class="dialog-container">
-    <h2 mat-dialog-title>Add photos</h2>
+    <h2 mat-dialog-title>Add media</h2>
     <mat-dialog-content class="mat-typography">
-        <span *ngIf="uploading">Uploading your photos...</span>
-        <span *ngIf="allFailed">Uploading photos failed!</span>
+        <span *ngIf="uploading">Uploading your files...</span>
+        <span *ngIf="allFailed">Uploading files failed!</span>
 
-        <div class="photos">
-            <div class="photos-preview">
-                <div class="photo-row" *ngFor="let file of uploadedImages">
-                    <div class="photo-wrapper">
-                        <ng-container
-                            *ngIf="file.mimeType.includes('video'); then videoBlock; else imageBlock"></ng-container>
-
-                        <ng-template #videoBlock>
-                            <video width="250" height="200" controls>
-                                <source
-                                    [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName"
-                                    [type]="file.mimeType">
-                                Your browser does not support the video tag.
-                            </video>
-                        </ng-template>
-
-                        <ng-template #imageBlock>
-                            <img [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName" />
-                        </ng-template>
-                    </div>
-
+        <div class="media">
+            <div class="media-preview">
+                <div class="media-row" *ngFor="let file of uploadedImages">
+                    <app-media-preview [file]="file" size="medium"></app-media-preview>
                     <div class="description">
                         <h3>AI-generated description and tags</h3>
                         <span>{{ file.description }}</span>
@@ -33,13 +16,10 @@
                 </div>
             </div>
         </div>
-
-
     </mat-dialog-content>
 
 </div>
 <mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="[]">Cancel</button>
-    <button mat-button [mat-dialog-close]="uploadedImages" cdkFocusInitial [disabled]="uploading">Attach
-        photos</button>
+    <button mat-button [mat-dialog-close]="uploadedImages" cdkFocusInitial [disabled]="uploading">Attach files</button>
 </mat-dialog-actions>

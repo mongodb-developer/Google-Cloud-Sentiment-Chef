@@ -7,7 +7,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FileHandle } from '../drag-and-drop.directive';
 import { MatDialog } from '@angular/material/dialog';
 import { MediaUploadDialogComponent } from '../media-upload-dialog/media-upload-dialog.component';
-import { UploudedImage } from '../uplouded-image';
+import { UploadedMedia } from '../uploaded-media';
 
 @Component({
   selector: 'app-review-form',
@@ -63,7 +63,7 @@ export class ReviewFormComponent implements OnInit {
   }
 
   fileHandles: FileHandle[] = [];
-  uploadedImages: Array<UploudedImage> = [];
+  uploadedImages: Array<UploadedMedia> = [];
   uploading = false;
 
   filesDropped(fileHandles: FileHandle[]): void {
