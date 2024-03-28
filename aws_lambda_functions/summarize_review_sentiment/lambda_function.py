@@ -21,7 +21,7 @@ def lambda_handler(event, context):
         input_text = body.get("text", "")  # Change from 'query' to 'text'
         if input_text:
             completion: str = get_completion(input_text)
-            return {"statusCode": 200, "body": json.dumps({"completion": completion})}
+            return {"statusCode": 200, "body": json.dumps({"summary": completion})}
         else:
             return {
                 "statusCode": 400,
