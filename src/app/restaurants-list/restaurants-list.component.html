@@ -8,8 +8,7 @@
     <mat-card
         class="restaurant-card"
         *ngFor="let restaurant of restaurants; index as i, first as isFirst"
-        [class.first]="isFirst"
-    >
+        [class.first]="isFirst">
         <mat-card-header>
             <mat-card-title><a [routerLink]="'/restaurants/' + restaurant._id">{{ restaurant.name }}</a></mat-card-title>
             <mat-card-subtitle class="restaurant-card-details">
@@ -56,4 +55,4 @@
     </mat-card>
 </div>
 
-<ngx-guided-tour></ngx-guided-tour>
+<app-restaurants-list-guided [restaurants]="restaurants"></app-restaurants-list-guided>

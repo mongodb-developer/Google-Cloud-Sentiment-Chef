@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { RestaurantService } from '../restaurant.service';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerReview, NewReview } from '../review';
+import { CustomerReview, NewReview, RawReview } from '../review';
 import { ReviewService } from '../review.service';
-import { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-restaurant-details',
@@ -16,6 +16,8 @@ export class RestaurantDetailsComponent {
   reviews: CustomerReview[] = [];
   restaurantWatcher: Subscription;
   reviewsWatcher: Subscription;
+
+  reviewFormEmitter: BehaviorSubject<Partial<RawReview>> = new BehaviorSubject({});
 
   constructor(
     private route: ActivatedRoute,

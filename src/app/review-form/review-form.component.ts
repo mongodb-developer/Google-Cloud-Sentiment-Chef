@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, NgZone, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, take } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { RawReview } from '../review';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
@@ -12,7 +12,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 })
 export class ReviewFormComponent implements OnInit {
   @Input()
-  initialState: BehaviorSubject<Partial<RawReview>> = new BehaviorSubject({});
+  state: BehaviorSubject<Partial<RawReview>>;
 
   @Output()
   formValuesChanged = new EventEmitter<RawReview>();
@@ -32,7 +32,7 @@ export class ReviewFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.initialState.subscribe(review => {
+    this.state.subscribe(review => {
       this.reviewForm = this.fb.group({
         name: [ review.name, [Validators.required] ],
         text: [ review.text, [ Validators.required, Validators.minLength(10) ] ],

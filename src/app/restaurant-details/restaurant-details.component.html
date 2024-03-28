@@ -3,7 +3,6 @@
         <img class="restaurant-cover" priority fill [ngSrc]="restaurant.imageURL" [alt]="restaurant.name" />
     </div>
 
-
     <div class="restaurant-section-wrapper">
         <section class="restaurant-section">
             <div>
@@ -13,32 +12,36 @@
                     </mat-card-header>
                     <mat-divider></mat-divider>
                     <mat-card-content>
-                        <h1>{{ restaurant.name }}</h1>
+                        <h1 class="restaurant-name">{{ restaurant.name }}</h1>
 
-                        <div class="restaurant-features">
-                            <div>🍽️ {{ restaurant.cuisine }}</div>
-                            <div>📍 {{ restaurant.borough }}</div>
-                        </div>
+                        <section class="restaurant-details">
+                            <div class="restaurant-features">
+                                <div>🍽️ {{ restaurant.cuisine }}</div>
+                                <div>📍 {{ restaurant.borough }}</div>
+                            </div>
+                            <mat-divider></mat-divider>
+
+                            <div class="restaurant-description">
+                                Nestled in the heart of a bustling city, the gastronomic paradise of "Flavorsome Haven"
+                                beckons food enthusiasts with
+                                its enchanting ambiance and delectable culinary offerings.
+                                As you step through the entrance, you're greeted by an elegant and modern interior that
+                                exudes a warm and inviting atmosphere.
+                            </div>
+                        </section>
+
                         <mat-divider></mat-divider>
 
-                        <div class="restaurant-description">
-                            Nestled in the heart of a bustling city, the gastronomic paradise of "Flavorsome Haven"
-                            beckons food enthusiasts with
-                            its enchanting ambiance and delectable culinary offerings.
-                            As you step through the entrance, you're greeted by an elegant and modern interior that
-                            exudes a warm and inviting atmosphere.
-                        </div>
-
-                        <mat-divider></mat-divider>
-
-                        <h3>Leave Your Review</h3>
-                        <div class="restaurant-leave-review">
-                            <app-review-form (formSubmitted)="addReview($event)"></app-review-form>
-                        </div>
+                        <section class="restaurant-review-form">
+                            <h3>Leave Your Review</h3>
+                            <div class="restaurant-leave-review">
+                                <app-review-form (formSubmitted)="addReview($event)" [state]="reviewFormEmitter"></app-review-form>
+                            </div>
+                        </section>
 
                         <h3 *ngIf="reviews.length">Customer Reviews with AI Sentiment Analysis</h3>
                         <div class="restaurant-reviews">
-                            <div class="restaurant-review" *ngFor="let review of reviews">
+                            <div class="restaurant-review" *ngFor="let review of reviews; let i = index" [ngClass]="{'first-review': i === 0}">
                                 <div class="restaurant-review-user">
                                     <img
                                         src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg"
@@ -165,12 +168,10 @@
                         <mat-card-actions>
                         </mat-card-actions>
                     </mat-card>
-
-
                 </div>
-
             </div>
-
         </section>
     </div>
 </div>
+
+<app-restaurant-details-guided (reviewSubmitted)="addReview($event)" [reviewFormEmitter]="reviewFormEmitter"></app-restaurant-details-guided>
