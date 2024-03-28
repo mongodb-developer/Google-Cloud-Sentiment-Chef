@@ -4,7 +4,9 @@ from typing import Dict, List, Any, Final
 import boto3
 
 _ENDPOINT_NAME: Final[str] = "jumpstart-dft-hf-llm-mistral-7b-ins-20240326-085341"
-_INFERENCE_COMPONENT_NAME: Final[str] = "huggingface-llm-mistral-7b-instruct-20240326-085342"
+_INFERENCE_COMPONENT_NAME: Final[str] = (
+    "huggingface-llm-mistral-7b-instruct-20240326-085342"
+)
 _REGION: Final[str] = "us-east-1"
 
 sagemaker = boto3.client("sagemaker-runtime", region_name=_REGION)
@@ -21,7 +23,10 @@ def lambda_handler(event, context):
             completion: Dict[str, int] = get_completion(input_query)
             return {"statusCode": 200, "body": json.dumps(completion)}
         else:
-            return {"statusCode": 400, "body": json.dumps({"error": "No input data provided."})}
+            return {
+                "statusCode": 400,
+                "body": json.dumps({"error": "No input data provided."}),
+            }
 
     except Exception as e:
         return {"statusCode": 500, "body": json.dumps({"error": str(e)})}
