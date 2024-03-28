@@ -5,7 +5,7 @@ const restaurantCollectionName = "restaurants";
 // Add the Google Cloud Function URL below
 const summarizeFunctionURL = "<google-cloud-function-endpoint>";
 
-exports = async function(changeEvent) {
+exports = async function (changeEvent) {
   const restaurantId = changeEvent?.fullDocument?.restaurant_id;
   if (!restaurantId) {
     throw new Error("Extracting restaurant ID from review document failed.");
@@ -27,8 +27,7 @@ exports = async function(changeEvent) {
     _id: restaurantId
   }, {
     $set: {
-      summary: summary,
-      summaryDate: new Date()
+      summary: summary, summaryDate: new Date()
     }
   });
 
@@ -38,20 +37,15 @@ exports = async function(changeEvent) {
 async function summarizeReviewSentiment(restaurantId) {
   const collection = getCollection(serviceName, databaseName, reviewsCollectionName);
 
-  const latestReviews = await collection.aggregate([
-    {
-      $match: { restaurant_id: restaurantId }
-    },
-    {
-      $sort: { date: -1 }
-    },
-    {
-      $limit: 50
-    },
-    {
-      $project: { text: 1 }
-    }
-  ]).toArray();
+  const latestReviews = await collection.aggregate([{
+    $match: {restaurant_id: restaurantId}
+  }, {
+    $sort: {date: -1}
+  }, {
+    $limit: 50
+  }, {
+    $project: {text: 1}
+  }]).toArray();
 
   if (latestReviews?.length < 3) {
     console.log("Unsufficient number of reviews.", latestReviews?.length);
@@ -60,9 +54,7 @@ async function summarizeReviewSentiment(restaurantId) {
 
   const reviewsString = latestReviews.map(review => review.text).join(" | ");
   const response = await context.http.post({
-    url: summarizeFunctionURL,
-    body: { text: reviewsString },
-    encodeBodyAsJSON: true
+    url: summarizeFunctionURL, body: {text: reviewsString}, encodeBodyAsJSON: true
   });
 
   const summary = JSON.parse(response?.body?.text())?.summary;
@@ -86,7 +78,7 @@ async function shouldUpdateSummary(collection, documentId, numberOfDays) {
     return true;
   }
 
-  const { summaryDate } = restaurant;
+  const {summaryDate} = restaurant;
 
   if (!summaryDate || isDateOlderThanSpecifiedDays(summaryDate, numberOfDays)) {
     return true;

@@ -3,7 +3,7 @@ const databaseName = "sample_restaurants";
 const collectionName = "processed_reviews";
 const analyzeSentimentFunctionURL = "***REMOVED***";
 
-exports = async function(changeEvent) {
+exports = async function (changeEvent) {
   console.log("Trigger function started");
 
   const fullDocument = changeEvent?.fullDocument;
@@ -19,8 +19,7 @@ exports = async function(changeEvent) {
   let response;
   try {
     response = await context.http.post({
-      url: analyzeSentimentFunctionURL,
-      body: JSON.stringify({ query: text }), // Adjusted as per previous correction
+      url: analyzeSentimentFunctionURL, body: JSON.stringify({query: text}), // Adjusted as per previous correction
       encodeBodyAsJSON: true
     });
   } catch (error) {
@@ -32,7 +31,7 @@ exports = async function(changeEvent) {
 
   let parsedResponse;
   try {
-    if(response?.body?.text()) {
+    if (response?.body?.text()) {
       console.log("Response body text:", response.body.text());
       parsedResponse = EJSON.parse(response.body.text());
       console.log("Parsed response:", parsedResponse);
@@ -63,8 +62,7 @@ exports = async function(changeEvent) {
 
   try {
     await collection.insertOne({
-      ...fullDocument,
-      ...parsedResponse
+      ...fullDocument, ...parsedResponse
     });
     console.log("Document inserted into collection successfully");
   } catch (error) {
