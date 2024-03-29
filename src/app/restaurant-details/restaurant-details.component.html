@@ -54,9 +54,11 @@
                                     <div class="restaurant-review-details-header">
 
                                         <ng-container [ngSwitch]="review.sentiment">
-                                            <span class="positive-text" *ngSwitchCase="'positive'">Positive sentiment 🤩</span>
-                                            <span class="negative-text" *ngSwitchCase="'negative'">Negative sentiment 😢</span>
-                                            <span class="neutral-text" *ngSwitchCase="'neutral'">Neutral sentiment 😐</span>
+                                            <span class="positive-text" *ngSwitchCase="5">Positive sentiment 🤩</span>
+                                            <span class="positive-text" *ngSwitchCase="4">Positive sentiment 🤩</span>
+                                            <span class="neutral-text" *ngSwitchCase="3">Neutral sentiment 😐</span>
+                                            <span class="negative-text" *ngSwitchCase="2">Negative sentiment 😢</span>
+                                            <span class="negative-text" *ngSwitchCase="1">Negative sentiment 😢</span>
                                         </ng-container>
 
                                         <span>Reviewed on {{review.date | date: 'mediumDate'}}</span>
