@@ -185,11 +185,22 @@ export class RestaurantDetailsGuidedComponent {
           content: 'The category scores are also notably low.',
           orientation: Orientation.Bottom,
           useHighlightPadding: true,
-          // closeAction: () => this.startNextTour(),
+          closeAction: () => this.startNextTour(),
         },
       ]
     },
 
+    {
+      tourId: 'summarization-tour',
+      steps: [
+        {
+          selector: '.restaurant-card-summary',
+          content: 'Based on the three reviews we just wrote, the AI model has generated a summary for the restaurant. Congratulations! This concludes the guide. Feel free to explore the application yourself!',
+          orientation: Orientation.Bottom,
+          useHighlightPadding: true,
+        },
+      ]
+    },
 
   ];
 
