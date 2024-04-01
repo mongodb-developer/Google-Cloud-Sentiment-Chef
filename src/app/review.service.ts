@@ -61,7 +61,7 @@ export class ReviewService {
     return fromChangeEvent(watcher)
       .pipe(
         filter(isInsertEvent),
-        map(event => ({...event.fullDocument})),
+        map(event => ({ ...event.fullDocument })),
         tap(review => console.log('New review:', review))
       )
   }
@@ -75,5 +75,35 @@ export class ReviewService {
 
     const collection = await this.getWriteCollection();
     collection.insertOne(reviewToInsert);
+  }
+
+
+  async search(restaurant_id: string, query: string) {
+    const pipeline = [
+      {
+        $search: {
+          index: "reviews",
+          compound: {
+            must: {
+              text: {
+                query,
+                path: {
+                  wildcard: "*"
+                }
+              }
+            },
+            filter: {
+              equals: {
+                path: 'restaurant_id',
+                value: new ObjectId(restaurant_id)
+              }
+            }
+          }
+        }
+      }
+    ]
+
+    const collection = await this.getReadCollection();
+    return collection.aggregate(pipeline) as Promise<CustomerReview[]>;
   }
 }

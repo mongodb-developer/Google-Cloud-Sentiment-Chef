@@ -37,9 +37,9 @@
                             <app-review-form (formSubmitted)="addReview($event)"></app-review-form>
                         </div>
 
-                        <h3 *ngIf="reviews.length">Customer Reviews with AI Sentiment Analysis</h3>
+                        <h3>Customer Reviews with AI Sentiment Analysis</h3>
 
-                        <form *ngIf="reviews.length" [formGroup]="searchForm" class="search-form">
+                        <form [formGroup]="searchForm" class="search-form">
                             <mat-form-field>
                                 <mat-label>Search</mat-label>
                                 <mat-icon matPrefix>search</mat-icon>

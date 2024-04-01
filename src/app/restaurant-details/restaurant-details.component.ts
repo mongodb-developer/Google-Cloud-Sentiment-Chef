@@ -5,7 +5,6 @@ import { CustomerReview, NewReview } from '../review';
 import { ReviewService } from '../review.service';
 import { Observable, Subscription, debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { SearchService } from '../search.service';
 
 @Component({
   selector: 'app-restaurant-details',
@@ -24,7 +23,6 @@ export class RestaurantDetailsComponent {
     private route: ActivatedRoute,
     private restaurantService: RestaurantService,
     private reviewService: ReviewService,
-    private searchService: SearchService,
     private fb: FormBuilder,
   ) {
   }
@@ -85,7 +83,7 @@ export class RestaurantDetailsComponent {
       filter(text => text!.length > 1),
       debounceTime(250),
       distinctUntilChanged(),
-      switchMap(searchTerm => this.searchService.searchReviews(this.currentId, searchTerm)),
+      switchMap(searchTerm => this.reviewService.search(this.currentId, searchTerm)),
 
     );
   }

@@ -17,7 +17,5 @@ export class MediaDialog {
     @Inject(MAT_DIALOG_DATA) public data: ImageDetailsDialogData
   ) {
     this.file = data.media;
-
-    console.log(this.file);
   }
 }
