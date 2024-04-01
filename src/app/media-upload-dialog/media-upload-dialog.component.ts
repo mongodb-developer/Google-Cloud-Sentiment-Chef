@@ -41,7 +41,8 @@ export class MediaUploadDialogComponent {
               fileName: result.fileName,
               mimeType: fileHandle.file.type,
               description: result.analysis?.description || '',
-              tags: result.analysis?.tags || []
+              tags: result.analysis?.tags || [],
+              sentiment: result.analysis?.sentiment || ''
             });
           })
           .catch((error) => {

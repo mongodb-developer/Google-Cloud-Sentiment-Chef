@@ -3,4 +3,5 @@ export interface UploadedMedia {
     mimeType: string;
     description: string;
     tags: string[];
+    sentiment: string;
 }

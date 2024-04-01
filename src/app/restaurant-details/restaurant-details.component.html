@@ -88,13 +88,8 @@
                                         <span> Atmosphere </span>
                                         <span class="text-accent">{{ review.interior || 'Not specified' }}</span>
                                     </div>
-                                    <div *ngIf="review?.tags?.length" class="restaurant-review-tags">
-                                        <span class="text-bold">️Tags: </span>
-                                        <span>{{ review.tags?.join(', ') }}</span>
-                                    </div>
                                 </div>
                                 <mat-divider></mat-divider>
-
                             </div>
                         </div>
                     </mat-card-content>
