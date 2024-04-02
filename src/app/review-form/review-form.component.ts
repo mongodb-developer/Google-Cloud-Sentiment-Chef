@@ -16,7 +16,7 @@ import { UploadedMedia } from '../uploaded-media';
 })
 export class ReviewFormComponent implements OnInit {
   @Input()
-  initialState: BehaviorSubject<Partial<RawReview>> = new BehaviorSubject({});
+  state: BehaviorSubject<Partial<RawReview>>;
 
   @Output()
   formValuesChanged = new EventEmitter<RawReview>();
@@ -37,7 +37,7 @@ export class ReviewFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.initialState.subscribe(review => {
+    this.state.subscribe(review => {
       this.reviewForm = this.fb.group({
         name: [ review.name, [Validators.required] ],
         text: [ review.text, [ Validators.required, Validators.minLength(10) ] ],

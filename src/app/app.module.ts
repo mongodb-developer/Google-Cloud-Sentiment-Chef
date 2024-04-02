@@ -28,6 +28,7 @@ import { MediaDialog } from './image-detailed-dialog/media-dialog.component';
 import { MediaPreviewComponent } from './media-preview/media-preview.component';
 import { RestaurantsListGuidedComponent } from './restaurants-list-guided/restaurants-list-guided.component';
 import { GuidedTourModule, GuidedTourService } from 'ngx-guided-tour';
+import { RestaurantDetailsGuidedComponent } from './restaurant-details-guided/restaurant-details-guided.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { GuidedTourModule, GuidedTourService } from 'ngx-guided-tour';
     MediaDialog,
     MediaPreviewComponent,
     RestaurantsListGuidedComponent,
+    RestaurantDetailsGuidedComponent,
   ],
   imports: [
     BrowserModule,

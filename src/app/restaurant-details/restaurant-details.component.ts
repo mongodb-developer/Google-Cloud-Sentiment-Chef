@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { RestaurantService } from '../restaurant.service';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerReview, NewReview } from '../review';
+import { CustomerReview, NewReview, RawReview } from '../review';
 import { ReviewService } from '../review.service';
-import { Observable, Subscription, debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -18,6 +18,7 @@ export class RestaurantDetailsComponent {
   restaurantWatcher: Subscription;
   reviewsWatcher: Subscription;
   filteredReviews$: Observable<CustomerReview[]>;
+  reviewFormEmitter: BehaviorSubject<Partial<RawReview>> = new BehaviorSubject({});
 
   constructor(
     private route: ActivatedRoute,
