@@ -26,6 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MediaUploadDialogComponent } from './media-upload-dialog/media-upload-dialog.component';
 import { MediaDialog } from './image-detailed-dialog/media-dialog.component';
 import { MediaPreviewComponent } from './media-preview/media-preview.component';
+import { RestaurantsListGuidedComponent } from './restaurants-list-guided/restaurants-list-guided.component';
+import { GuidedTourModule, GuidedTourService } from 'ngx-guided-tour';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { MediaPreviewComponent } from './media-preview/media-preview.component';
     MediaUploadDialogComponent,
     MediaDialog,
     MediaPreviewComponent,
+    RestaurantsListGuidedComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,9 +60,11 @@ import { MediaPreviewComponent } from './media-preview/media-preview.component';
     ReactiveFormsModule,
     HttpClientModule,
     MatDialogModule,
+    GuidedTourModule,
   ],
   providers: [
     provideImgixLoader("***REMOVED***"),
+    GuidedTourService,
   ],
   bootstrap: [AppComponent]
 })
