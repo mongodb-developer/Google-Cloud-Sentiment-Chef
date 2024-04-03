@@ -5,12 +5,7 @@ import {
   Output,
   EventEmitter
 } from "@angular/core";
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-
-export interface FileHandle {
-  file: File,
-  url: SafeUrl
-}
+import { FileHandle, FileHandleService } from "./file-handle.service";
 
 @Directive({
   selector: "[appDrag]"
@@ -20,7 +15,7 @@ export class DragAndDropDirective {
 
   @HostBinding("style.background") private background = "#eee";
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private fileHandleService: FileHandleService) { }
 
   @HostListener("dragover", ["$event"]) public onDragOver(evt: DragEvent) {
     evt.preventDefault();
@@ -47,8 +42,8 @@ export class DragAndDropDirective {
 
     for (let i = 0; i < filesFromEvent?.length; i++) {
       const file = filesFromEvent[i];
-      const url = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
-      files.push({ file, url });
+      const handle = this.fileHandleService.sanitizeFile(file);
+      files.push(handle);
     }
     if (files.length > 0) {
       this.files.emit(files);

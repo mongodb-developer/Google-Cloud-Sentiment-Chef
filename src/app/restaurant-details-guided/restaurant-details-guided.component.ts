@@ -4,6 +4,12 @@ import { Restaurant } from '../restaurant';
 import { NewReview, RawReview } from '../review';
 import { BehaviorSubject } from 'rxjs';
 
+export interface ReviewFormState {
+  review?: Partial<RawReview>,
+  attachImages?: boolean,
+  submitReview?: boolean,
+}
+
 const reviews: NewReview[] = [
   {
     name: 'Clementine',
@@ -11,15 +17,33 @@ const reviews: NewReview[] = [
     date: new Date().toString()
   },
   {
-    name: 'Joel',
-    text: `Food served style "alla nonna" with a modern touch. Suitable for a night out for friends, couples or an informal business lunch. The interior has been renovated recently. We waited for an hour to be seated. There are a couple of better restaurants in the area. It's not a terrible choice though.`,
+    name: 'Mary',
+    text: `Went here for an early dinner last night. Don't drive here. Parking is terrible. Seated promptly. Needed proof of vaccination. No liquor license yet. We didn't enjoy it at all and the service wasn't great either. The food was mediocre.`,
     date: new Date().toString()
   },
   {
-    name: 'Mary',
-    text: `Went here for an early dinner last night. Don't drive here. Parking is terrible.
-    Seated promptly. Needed proof of vaccination. No liquor license yet. We didn't enjoy it at all and the service wasn't great either. The food was mediocre.`,
+    name: 'Joel',
+    text: `We came here for drinks.`,
     date: new Date().toString()
+  },
+  {
+    name: 'Joel',
+    text: `We came here for drinks.`,
+    date: new Date().toString(),
+    images: [
+      {
+        fileName: 'https://i.ibb.co/pvQtyx7/fun-1.jpg',
+        mimeType: 'image/jpeg'
+      },
+      {
+        fileName: 'https://i.ibb.co/K9SL0SR/stock-photo-1.jpg',
+        mimeType: 'image/jpeg'
+      },
+      {
+        fileName: 'https://i.ibb.co/k4z8SGs/fun-2.jpg',
+        mimeType: 'image/jpeg'
+      },
+    ]
   },
 ];
 
@@ -34,10 +58,8 @@ export class RestaurantDetailsGuidedComponent {
   toursCounter = 0;
 
   @Input() restaurant: Restaurant;
-  @Input() reviewFormEmitter: BehaviorSubject<Partial<RawReview>> = new BehaviorSubject({});
-
-  @Output()
-  reviewSubmitted = new EventEmitter<NewReview>();
+  @Input() reviewFormState: BehaviorSubject<ReviewFormState> = new BehaviorSubject({});
+  @Input() searchState: BehaviorSubject<string> = new BehaviorSubject('');
 
   tours: GuidedTour[] = [
     {
@@ -131,13 +153,13 @@ export class RestaurantDetailsGuidedComponent {
         },
         {
           selector: '.first-review .restaurant-review-details-header',
-          content: 'The sentiment you see might be positive, neutral or negative depending on the Gemini output.',
+          content: 'The sentiment of the review was notably negative as indicated by the AI model.',
           orientation: Orientation.Bottom,
           useHighlightPadding: true,
         },
         {
           selector: '.first-review .restaurant-review-scores',
-          content: 'The category scores also are different.',
+          content: 'The category scores are also low.',
           orientation: Orientation.Bottom,
           useHighlightPadding: true,
           closeAction: () => this.startNextTour(),
@@ -150,7 +172,7 @@ export class RestaurantDetailsGuidedComponent {
       steps: [
         {
           selector: '.restaurant-review-form',
-          content: 'Let\'s put the AI model to one final test.',
+          content: 'Let\'s put the AI model to one more test.',
           closeAction: () => this.fillOutReview(),
           orientation: Orientation.Right,
           useHighlightPadding: true
@@ -170,20 +192,109 @@ export class RestaurantDetailsGuidedComponent {
       steps: [
         {
           selector: '.first-review',
-          content: 'The third review was not good, as indicated by the sentiment analysis.',
+          content: 'This review was too succinct for the AI model to determine the sentiment. However, people quite often leave short reviews but attach images. Photos can also carry sentiment! Let\'s see what happens if we attach some photos to the same review and submit it again.',
           orientation: Orientation.Right,
           useHighlightPadding: true,
+          closeAction: () => this.startNextTour(),
+        },
+      ]
+    },
+
+    {
+      tourId: 'review-4-fill-out',
+      steps: [
+        {
+          selector: '.restaurant-review-form',
+          content: 'Let\'s submit the same review but this time attach some photos to it!',
+          closeAction: async () => {
+            this.fillOutReview();
+            setTimeout(() => {
+              this.startNextTour();
+            }, 3000);
+          },
+          orientation: Orientation.Right,
+          useHighlightPadding: true
+        }
+      ]
+    },
+
+    {
+      tourId: 'media-upload-tour',
+      steps: [
+        {
+          selector: '.media-upload-dialog',
+          content: 'The attached photos may take a couple of seconds to upload. Click \'Next\' after they have been uploaded.',
+          orientation: Orientation.Right,
+          useHighlightPadding: true
         },
         {
-          selector: '.first-review .restaurant-review-details-header',
-          content: 'The overall sentiment is negative.',
+          selector: '.media-upload-dialog .description',
+          content: 'The AI model can detect objects and sentiment in the images. It has generated a description, extracted useful tags and analysed the sentiment of the images. This data will be used to enhance the sentiment analysis of the whole review.',
+          orientation: Orientation.Right,
+          useHighlightPadding: true,
+          closeAction: () => {
+            this.attachPhotos();
+            this.startNextTour();
+          },
+        },
+      ]
+    },
+    {
+      tourId: 'review-4-submit',
+      steps: [
+        {
+          selector: '.restaurant-review-form',
+          content: 'The images have been attached to the review. Click the \'Done\' button to submit the review and wait for the AI model to analyse it!',
+          closeAction: () => this.submitReview(),
+          orientation: Orientation.Right,
+          useHighlightPadding: true
+        }
+      ]
+    },
+    {
+      tourId: 'review-4-tour',
+      steps: [
+        {
+          selector: '.first-review',
+          content: 'This time, depending on the result we get from the AI model, we might see a different sentiment label for the review.',
+          orientation: Orientation.Right,
+          useHighlightPadding: true,
+          closeAction: () => this.startNextTour(),
+        },
+      ]
+    },
+
+    {
+      tourId: 'search',
+      steps: [
+        {
+          selector: '.search-form',
+          content: 'The application uses MongoDB Atlas Search to provide a powerful search functionality. The search utilises not only the reviews text but also extracted image tags and descriptions.',
           orientation: Orientation.Bottom,
           useHighlightPadding: true,
         },
         {
-          selector: '.first-review .restaurant-review-scores',
-          content: 'The category scores are also notably low.',
+          selector: '.search-form',
+          content: 'Let\'s try searching for a review with a specific keyword.',
           orientation: Orientation.Bottom,
+          useHighlightPadding: true,
+          closeAction: () => {
+            this.search('beer');
+            setTimeout(() => {
+              this.startNextTour();  
+            }, 1000);
+          }
+        },
+      ]
+    },
+
+    {
+      tourId: 'search-results',
+      steps: [
+        {
+          selector: '.first-review',
+          content: 'Even though the text doesn\'t mention beer, the AI model has detected beer in the images and extracted it as a tag. Atlas Search indexes the image tags together with the review texts. This is why the review was returned in the search results.',
+          orientation: Orientation.Right,
           useHighlightPadding: true,
           closeAction: () => this.startNextTour(),
         },
@@ -195,13 +306,12 @@ export class RestaurantDetailsGuidedComponent {
       steps: [
         {
           selector: '.restaurant-card-summary',
-          content: 'Based on the three reviews we just wrote, the AI model has generated a summary for the restaurant.',
-          orientation: Orientation.Right,
+          content: 'Final AI treat! Based on the reviews we just wrote, the AI model also generated a summary for the restaurant.',
+          orientation: Orientation.Left,
           useHighlightPadding: true,
         },
       ]
     },
-
   ];
 
   constructor(
@@ -215,7 +325,7 @@ export class RestaurantDetailsGuidedComponent {
 
   private fillOutReview() {
     this.currentReview = reviews[this.reviewsCounter++];
-    this.reviewFormEmitter.next(this.currentReview);
+    this.reviewFormState.next({ review: this.currentReview });
 
     setTimeout(() => {
       // wait before showing the next step in the guide
@@ -223,12 +333,18 @@ export class RestaurantDetailsGuidedComponent {
   }
 
   submitReview() {
-    this.reviewSubmitted.emit(this.currentReview);
-
     this.currentReview = { name: '', text: '', date: new Date().toString() };
-    this.reviewFormEmitter.next(this.currentReview);
+    this.reviewFormState.next({ submitReview: true });
 
     this.startNextTour();
+  }
+
+  attachPhotos() {
+    this.reviewFormState.next({ attachImages: true });
+  }
+
+  search(query: string) {
+    this.searchState.next(query);
   }
 
   private startNextTour() {

@@ -37,7 +37,7 @@
                         <section class="restaurant-review-form">
                             <h3>Leave Your Review</h3>
                             <div class="restaurant-leave-review">
-                                <app-review-form (formSubmitted)="addReview($event)" [state]="reviewFormEmitter"></app-review-form>
+                                <app-review-form (formSubmitted)="addReview($event)" [state]="reviewFormState"></app-review-form>
                             </div>
                         </section>
 
@@ -188,4 +188,7 @@
     </div>
 </div>
 
-<app-restaurant-details-guided (reviewSubmitted)="addReview($event)" [reviewFormEmitter]="reviewFormEmitter"></app-restaurant-details-guided>
+<app-restaurant-details-guided
+    [searchState]="searchState"
+    [reviewFormState]="reviewFormState"
+></app-restaurant-details-guided>

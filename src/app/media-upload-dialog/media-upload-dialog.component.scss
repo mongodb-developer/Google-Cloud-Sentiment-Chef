@@ -19,7 +19,10 @@ h2 {
         display: grid;
         grid-template-columns: 1fr 2fr;
         gap: 30px;
-        justify-items: center;
+    }
+
+    .media-preview {
+        justify-self: center;
     }
 
     .description {

@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom, of, switchMap } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ImageUplouderService {
+export class ImageUploaderService {
   constructor(private http: HttpClient) { }
 
   upload(file: File) {
@@ -49,6 +49,7 @@ export class ImageUplouderService {
   }
 
   private analyzeImage(fileName: string, fileType: string) {
+    console.log('file name ----> ' + fileName);
     return firstValueFrom(this.http.get(
         'https://us-central1-atlas-ai-demos.cloudfunctions.net/analyzeMedia',
         {

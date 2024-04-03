@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RestaurantService } from '../restaurant.service';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerReview, NewReview, RawReview } from '../review';
+import { CustomerReview, NewReview } from '../review';
 import { ReviewService } from '../review.service';
 import { BehaviorSubject, Observable, Subscription, debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ReviewFormState } from '../restaurant-details-guided/restaurant-details-guided.component';
 
 @Component({
   selector: 'app-restaurant-details',
@@ -18,7 +19,8 @@ export class RestaurantDetailsComponent {
   restaurantWatcher: Subscription;
   reviewsWatcher: Subscription;
   filteredReviews$: Observable<CustomerReview[]>;
-  reviewFormEmitter: BehaviorSubject<Partial<RawReview>> = new BehaviorSubject({});
+  reviewFormState: BehaviorSubject<ReviewFormState> = new BehaviorSubject({});
+  searchState: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor(
     private route: ActivatedRoute,
@@ -29,8 +31,13 @@ export class RestaurantDetailsComponent {
   }
 
   async ngOnInit() {
-    this.filteredReviews$ = this.search(this.searchForm.controls.query);
+    this.searchState.subscribe({
+      next: async searchTerm => {
+        this.searchForm.controls.query.setValue(searchTerm);
+      }
+    });
 
+    this.filteredReviews$ = this.search(this.searchForm.controls.query);
     this.filteredReviews$.subscribe({
       next: async reviews => {
         // Stop watching for new reviews when the user starts searching

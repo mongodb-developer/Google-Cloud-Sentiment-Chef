@@ -4,10 +4,11 @@ import { BehaviorSubject } from 'rxjs';
 
 import { RawReview } from '../review';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { FileHandle } from '../drag-and-drop.directive';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MediaUploadDialogComponent } from '../media-upload-dialog/media-upload-dialog.component';
 import { UploadedMedia } from '../uploaded-media';
+import { FileHandle, FileHandleService } from '../file-handle.service';
+import { ReviewFormState } from '../restaurant-details-guided/restaurant-details-guided.component';
 
 @Component({
   selector: 'app-review-form',
@@ -16,7 +17,7 @@ import { UploadedMedia } from '../uploaded-media';
 })
 export class ReviewFormComponent implements OnInit {
   @Input()
-  state: BehaviorSubject<Partial<RawReview>>;
+  state: BehaviorSubject<ReviewFormState>;
 
   @Output()
   formValuesChanged = new EventEmitter<RawReview>();
@@ -24,9 +25,11 @@ export class ReviewFormComponent implements OnInit {
   @Output()
   formSubmitted = new EventEmitter<RawReview>();
 
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
+
   reviewForm: FormGroup;
 
-  @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  uploadImagesDialog: MatDialogRef<MediaUploadDialogComponent>;
 
   get name() { return this.reviewForm.get('name')!; }
   get text() { return this.reviewForm.get('text')!; }
@@ -34,14 +37,47 @@ export class ReviewFormComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private fb: FormBuilder,
+    private fileHandleService: FileHandleService
   ) { }
 
   ngOnInit(): void {
-    this.state.subscribe(review => {
-      this.reviewForm = this.fb.group({
-        name: [ review.name, [Validators.required] ],
-        text: [ review.text, [ Validators.required, Validators.minLength(10) ] ],
-      });
+    this.reviewForm = this.fb.group({
+      name: [ '', [Validators.required] ],
+      text: [ '', [ Validators.required, Validators.minLength(10) ] ],
+      images: [ [] ],
+    });
+
+     this.state.subscribe(async ({ review, attachImages, submitReview }) => {
+      if (review) {
+        this.reviewForm = this.fb.group({
+          name: [ review.name, [Validators.required] ],
+          text: [ review.text, [ Validators.required, Validators.minLength(10) ] ],
+          images: [ review.images ],
+        });
+
+        if (review.images?.length) {
+          const images = review.images;
+          const fileHandles = [];
+
+          for (let image of images) {
+            const fileHandle = await this.fileHandleService.fileFromUrl(image.fileName, image.mimeType);
+            fileHandles.push(fileHandle);
+          }
+
+          this.filesDropped(fileHandles);
+        }
+      }
+
+      if (attachImages) {
+        const result = this.uploadImagesDialog.componentInstance.uploadedImages;
+        this.uploadImagesDialog.close(result);
+        this.uploadedImages = result;
+        this.uploading = false;
+      }
+
+      if (submitReview) {
+        this.submitForm();
+      }
     });
   }
 
@@ -68,12 +104,12 @@ export class ReviewFormComponent implements OnInit {
 
   filesDropped(fileHandles: FileHandle[]): void {
     this.uploading = true;
-    const dialogRef = this.dialog.open(MediaUploadDialogComponent, {
+    this.uploadImagesDialog = this.dialog.open(MediaUploadDialogComponent, {
       data: { fileHandles },
       disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    this.uploadImagesDialog.afterClosed().subscribe(result => {
       this.uploadedImages = result;
       this.uploading = false;
     });
