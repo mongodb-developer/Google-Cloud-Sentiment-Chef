@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { UploadedMedia } from '../uploaded-media';
 import { MediaDialog } from '../image-detailed-dialog/media-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { config } from 'src/config';
 
 @Component({
   selector: 'app-media-preview',
@@ -14,6 +15,8 @@ export class MediaPreviewComponent {
 
   @Input()
   size: 'small' | 'medium' | 'big';
+
+  reviewImagesBucket = config.reviewImagesBucket;
 
   constructor(
     public dialog: MatDialog,

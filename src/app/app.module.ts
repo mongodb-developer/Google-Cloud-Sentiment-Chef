@@ -29,6 +29,7 @@ import { MediaPreviewComponent } from './media-preview/media-preview.component';
 import { RestaurantsListGuidedComponent } from './restaurants-list-guided/restaurants-list-guided.component';
 import { GuidedTourModule, GuidedTourService } from 'ngx-guided-tour';
 import { RestaurantDetailsGuidedComponent } from './restaurant-details-guided/restaurant-details-guided.component';
+import { config } from 'src/config';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,7 @@ import { RestaurantDetailsGuidedComponent } from './restaurant-details-guided/re
     GuidedTourModule,
   ],
   providers: [
-    provideImgixLoader("***REMOVED***"),
+    provideImgixLoader(config.imgixDomain),
     GuidedTourService,
   ],
   bootstrap: [AppComponent]

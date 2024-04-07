@@ -4,13 +4,13 @@
 
     <ng-template #videoBlock>
         <video controls>
-            <source [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName"
+            <source [src]="'https://storage.googleapis.com/' + reviewImagesBucket + '/'+ file.fileName"
                 [type]="file.mimeType">
             Your browser does not support the video tag.
         </video>
     </ng-template>
 
     <ng-template #imageBlock>
-        <img [src]="'https://storage.googleapis.com/***REMOVED***/' + file.fileName" />
+        <img [src]="'https://storage.googleapis.com/' + reviewImagesBucket + '/' + file.fileName" />
     </ng-template>
 </div>
