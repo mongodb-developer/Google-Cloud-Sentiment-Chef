@@ -13,12 +13,12 @@ export interface ReviewFormState {
 const reviews: NewReview[] = [
   {
     name: 'Clementine',
-    text: `Incredible place. la love to visit again This is a very nice restaurant with tasty creative lood and attentive stall. The food is delicious, with a nice twist of the original recipes. The stall is very nice, not only they advised me on a the choice of dishes and desert, but even brought be an Ethiopian desert form after I had a question. Would definitely come again!`,
+    text: `Incredible place. I would love to visit again. This is a very nice restaurant with tasty creative food and attentive staff. The food is delicious, with a nice twist of the original recipes. The staff is very nice, not only they advised me on a the choice of dishes and desert, but even brought me an Ethiopian desert after I had a question. Would definitely come again!`,
     date: new Date().toString()
   },
   {
     name: 'Mary',
-    text: `Went here for an early dinner last night. Don't drive here. Parking is terrible. Seated promptly. Needed proof of vaccination. No liquor license yet. We didn't enjoy it at all and the service wasn't great either. The food was mediocre.`,
+    text: `Went here for an early dinner last night. Don't drive here. Parking is terrible. Seated promptly. No liquor license yet. We didn't enjoy it at all and the service wasn't great either. The food was mediocre.`,
     date: new Date().toString()
   },
   {
@@ -91,7 +91,14 @@ export class RestaurantDetailsGuidedComponent {
         {
           selector: '.restaurant-review-form',
           content: 'Click the \'Done\' button to submit the review and wait for the AI model to analyse it!',
-          closeAction: () => this.submitReview(),
+          closeAction: () => {
+            this.submitReview();
+
+            // Wait for the first review to be analysed
+            setTimeout(() => {
+              this.startNextTour();
+            }, 3000);
+          },
           orientation: Orientation.Right,
           useHighlightPadding: true
         },
@@ -127,7 +134,7 @@ export class RestaurantDetailsGuidedComponent {
       steps: [
         {
           selector: '.restaurant-review-form',
-          content: 'Let\'s put the AI model to the test with a more ambiguous review.',
+          content: 'Let\'s put the AI model to the test with a more negative review.',
           closeAction: () => this.fillOutReview(),
           orientation: Orientation.Right,
           useHighlightPadding: true
@@ -135,7 +142,10 @@ export class RestaurantDetailsGuidedComponent {
         {
           selector: '.restaurant-review-form',
           content: 'Click the \'Done\' button to submit the review and wait for the AI model to analyse it!',
-          closeAction: () => this.submitReview(),
+          closeAction: () => {
+            this.submitReview();
+            this.startNextTour();
+          },
           orientation: Orientation.Right,
           useHighlightPadding: true
         },
@@ -180,7 +190,10 @@ export class RestaurantDetailsGuidedComponent {
         {
           selector: '.restaurant-review-form',
           content: 'Click the \'Done\' button to submit the review and wait for the AI model to analyse it!',
-          closeAction: () => this.submitReview(),
+          closeAction: () => {
+            this.submitReview();
+            this.startNextTour();
+          },
           orientation: Orientation.Right,
           useHighlightPadding: true
         },
@@ -228,7 +241,7 @@ export class RestaurantDetailsGuidedComponent {
           useHighlightPadding: true
         },
         {
-          selector: '.media-upload-dialog .description',
+          selector: '.media-upload-dialog',
           content: 'The AI model can detect objects and sentiment in the images. It has generated a description, extracted useful tags and analysed the sentiment of the images. This data will be used to enhance the sentiment analysis of the whole review.',
           orientation: Orientation.Right,
           useHighlightPadding: true,
@@ -245,7 +258,10 @@ export class RestaurantDetailsGuidedComponent {
         {
           selector: '.restaurant-review-form',
           content: 'The images have been attached to the review. Click the \'Done\' button to submit the review and wait for the AI model to analyse it!',
-          closeAction: () => this.submitReview(),
+          closeAction: () => {
+            this.submitReview();
+            this.startNextTour();
+          },
           orientation: Orientation.Right,
           useHighlightPadding: true
         }
@@ -335,8 +351,6 @@ export class RestaurantDetailsGuidedComponent {
   submitReview() {
     this.currentReview = { name: '', text: '', date: new Date().toString() };
     this.reviewFormState.next({ submitReview: true });
-
-    this.startNextTour();
   }
 
   attachPhotos() {

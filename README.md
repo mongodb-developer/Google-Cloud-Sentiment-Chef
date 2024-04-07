@@ -1,6 +1,6 @@
 # Generative AI Sentiment Analysis and Summarization
 
-This is a demo of a customer service chatbot using Generative AI through Google's Gemini model. 
+This is a demo of a sentiment analysis, tagging, and summarization Gemini — Google's next-generation AI model. 
 
 ## Quickstart
 
