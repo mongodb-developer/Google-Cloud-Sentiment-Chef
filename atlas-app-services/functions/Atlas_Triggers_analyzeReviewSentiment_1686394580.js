@@ -1,7 +1,7 @@
 const serviceName = "mongodb-atlas";
 const databaseName = "sample_restaurants";
 const collectionName = "processed_reviews";
-const analyzeSentimentFunctionURL = "***REMOVED***";
+const analyzeSentimentFunctionURL = "<AWS Lambda URL>";
 
 exports = async function (changeEvent) {
   console.log("Trigger function started");

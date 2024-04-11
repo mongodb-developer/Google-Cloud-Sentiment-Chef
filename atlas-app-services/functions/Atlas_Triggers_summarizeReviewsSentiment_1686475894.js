@@ -2,8 +2,8 @@ const serviceName = "M0";
 const databaseName = "sample_restaurants";
 const reviewsCollectionName = "processed_reviews";
 const restaurantCollectionName = "restaurants";
-// Add the Google Cloud Function URL below
-const summarizeFunctionURL = "<google-cloud-function-endpoint>";
+// Add the AWS Lambda URL below
+const summarizeFunctionURL = "<aws-lambda-endpoint>";
 
 exports = async function (changeEvent) {
   const restaurantId = changeEvent?.fullDocument?.restaurant_id;

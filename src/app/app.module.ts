@@ -53,7 +53,7 @@ import { RestaurantDetailsGuidedComponent } from './restaurant-details-guided/re
     GuidedTourModule,
   ],
   providers: [
-    provideImgixLoader("***REMOVED***"),
+    provideImgixLoader("https://restaurant-covers.imgix.net/"),
     GuidedTourService,
   ],
   bootstrap: [AppComponent]
