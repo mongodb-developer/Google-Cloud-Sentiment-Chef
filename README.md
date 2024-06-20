@@ -14,6 +14,7 @@ Take a note of the deployed functions' URLs. You will need them later.
 
 ### MongoDB Atlas setup
 
+  1. Create a [free MongoDB Atlas account](https://mongodb.com/try?utm_campaign=devrel&utm_source=google.cloud&utm_medium=github&utm_content=sentiment.chef&utm_term=stanimira.vlaeva).
   1. Database cluster
     - Deploy a new MongoDB database cluster in your Atlas account. You can use the free M0 tier for this demo.
     - Load the sample dataset.
